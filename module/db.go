@@ -58,8 +58,6 @@ func init() {
 	 	beego.Error("redis连接失败,redis地址",redisurl,err)
 	 	return
 	 }
-
-
 }
 
 
