@@ -3,6 +3,7 @@ package module
 import (
 	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/go-redis/redis"
 	_ "github.com/astaxie/beego/config/xml"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -12,6 +13,9 @@ var (
 	Db *gorm.DB
 	//db连接信息
 	dbinfo string
+	RedisClient *redis.Client
+	redisurl string
+	redispassword string
 
 )
 type Database struct {
@@ -41,7 +45,21 @@ func init() {
 		return
 	}
 	//创建表关联user结构体
+	redisurl = beego.AppConfig.String("redisurl")
+	redispassword = beego.AppConfig.String("redispassword")
 	Db.AutoMigrate(&User{})
+	 RedisClient = redis.NewClient(&redis.Options{
+		Addr:               redisurl,
+		Password:           redispassword,
+		DB:                 0,
+	})
+	 _,err := RedisClient.Ping().Result()
+	 if err != nil {
+	 	beego.Error("redis连接失败,redis地址",redisurl,err)
+	 	return
+	 }
+
+
 }
 
 
