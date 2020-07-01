@@ -8,6 +8,7 @@ import (
 	"github.com/strive-after/go-kubernetes/module"
 	_ "github.com/strive-after/go-kubernetes/module"
 	_ "github.com/strive-after/go-kubernetes/route"
+	_ "github.com/astaxie/beego/session/redis"
 )
 
 func StopTimeFormat(stoptime time.Time) string{
@@ -44,6 +45,8 @@ func main() {
 	var port string
 	port  = ":"+beego.AppConfig.String("port")
 	beego.BConfig.WebConfig.Session.SessionOn = true
+	beego.BConfig.WebConfig.Session.SessionProvider = "redis"
+	beego.BConfig.WebConfig.Session.SessionProviderConfig = "39.105.114.198:6379"
 	//自定义错误控制器
 	beego.ErrorController(&controls.ErrControls{})
 	beego.AddFuncMap("TimeForMat",StopTimeFormat)
