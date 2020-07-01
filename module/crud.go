@@ -1,5 +1,16 @@
 package module
 
+const  (
+	userTableName string = "user"
+	groupTableName string = "group"
+)
+
+var (
+	ok bool
+	err       error
+)
+
+
 type Operation interface {
 	CRUD
 	//返回一个表名  如果做关联查询好用

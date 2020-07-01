@@ -1,11 +1,9 @@
 package module
 
 import (
-	"github.com/astaxie/beego/orm"
-	"math"
+	"math/rand"
 	"strconv"
 	"time"
-	"math/rand"
 )
 
 func salt() string{
@@ -64,17 +62,3 @@ func GetRole(role string) int{
 }
 
 
-func Page(tablename string,index ,pagesize int) (int64,int,float64,int,error) {
-	o := orm.NewOrm()
-	//count 总共的数据量
-	count ,err := o.QueryTable(tablename).Count()
-	if err != nil {
-		return 0,0,0,0,err
-	}
-	//起始量  因为从0开始所以-1  数据量起始点是0
-	start := pagesize*(index -1 )
-	//总共的页数= 总数据数量/ 单页数据量
-	pagenum := math.Ceil(float64(count)/float64(int64(pagesize)))
-	//总数据数量   起始点   总共的页数    每页数量
-	return count,start,pagenum,pagesize,nil
-}
