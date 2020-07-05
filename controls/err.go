@@ -1,6 +1,8 @@
 package controls
 
-import "github.com/astaxie/beego"
+import (
+	"github.com/astaxie/beego"
+)
 
 const (
 	UserErr  = "/user/err"

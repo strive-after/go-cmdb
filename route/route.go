@@ -13,7 +13,8 @@ var filtFunc = func(ctx *context.Context) {
 	if url == "/login" || url == "/register" {
 		return
 	}
-	useremail  := ctx.GetCookie("UserEmail")
+	useremail,_  := ctx.GetSecureCookie(controls.Secret,"UserEmail")
+
 	user := ctx.Input.Session(useremail)
 	if user == nil {
 		ctx.Redirect(301,"/login")

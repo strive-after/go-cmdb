@@ -8,8 +8,9 @@ type Errors struct {
 
 func (e *Errors) Add(key , err string) {
 	if _,ok := e.errors[key];!ok {
-
+		e.errors[key] = make([]string, 0, 5)
 	}
+	e.errors[key] = append(e.errors[key],err)
 }
 //返回错误列表
 func (e *Errors) Errors() map[string][]string {

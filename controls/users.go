@@ -25,7 +25,7 @@ func (usercon *UserControoler) ShowUserGet() {
 	)
 
 	//获取当前登录用户
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	err = module.Db.Model(module.User{}).Find(&users).Error
 	if err != nil {
@@ -70,7 +70,7 @@ func (usercon *UserControoler) ChangeUserGet() {
 		usercon.Redirect(UserErr,302)
 		return
 	}
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail ,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	usercon.Data["UserName"] = ctxuser.Name
 	usercon.Data["user"] = user
@@ -87,7 +87,7 @@ func (usercon *UserControoler) ChangeUserPost() {
 		useremail string
 		ctxuser module.User
 	)
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail ,_= usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	id ,err =strconv.Atoi(usercon.GetString("id"))
 	if err != nil {
@@ -115,7 +115,7 @@ func (usercon *UserControoler) ChangeUserPost() {
 	}
 	//当用户修改的是自己的时候  把session中存放的user信息修改一下 保持最新
 	if uint(id) == ctxuser.ID {
-		usercon.Ctx.SetCookie("UserEmail",user.Email,time.Second*3600)
+		usercon.Ctx.SetSecureCookie(Secret,"UserEmail",user.Email,time.Second*3600)
 		usercon.SetSession(user.Email,user)
 	}
 
@@ -132,7 +132,7 @@ func (usercon *UserControoler) Del() {
 		ctxuser module.User
 	)
 	fmt.Println("delete")
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	id ,err =strconv.Atoi(usercon.GetString("id"))
 	if err != nil {
@@ -168,7 +168,7 @@ func (usercon *UserControoler) UserInfo() {
 		user module.User
 		ctxuser module.User
 	)
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	id ,err =strconv.Atoi(usercon.GetString("id"))
 	if err != nil {
@@ -194,7 +194,7 @@ func (usercon *UserControoler)  MyInfoGet() {
 		useremail string
 		ctxuser module.User
 	)
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	//因为我们有过滤器函数 如果session为空那么会直接返回登陆页面 所以可以直接用类型转换
 	if usercon.GetSession(useremail) == nil {
 		beego.Error("MyInfoGet  Session 不存在")
@@ -214,7 +214,7 @@ func (usercon *UserControoler)  MyInfoPost() {
 		useremail string
 		ctxuser module.User
 	)
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail ,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	user.ID = ctxuser.ID
 	if err = usercon.ParseForm(&user);err != nil {
@@ -236,7 +236,7 @@ func (usercon *UserControoler)  MyInfoPost() {
 		return
 	}
 
-	usercon.Ctx.SetCookie("UserEmail",user.Email,time.Second*3600)
+	usercon.Ctx.SetSecureCookie(Secret,"UserEmail",user.Email,time.Second*3600)
 	usercon.SetSession(user.Email,user)
 	usercon.Redirect("/user/show?UserIndex=1",302)
 }
@@ -248,7 +248,7 @@ func (usercon *UserControoler) MyPassGet() {
 		useremail string
 		ctxuser module.User
 	)
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail , _ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	usercon.Data["Email"] = ctxuser.Email
 	usercon.TplName= "users/MyPass.html"
@@ -261,7 +261,7 @@ func (usercon *UserControoler) MyPassPost() {
 		useremail  string
 		err error
 	)
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail, _  = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	if usercon.GetSession(useremail) == nil {
 		beego.Error("MyPassPost  Session 不存在")
 		usercon.Redirect("/login",302)
@@ -275,7 +275,7 @@ func (usercon *UserControoler) MyPassPost() {
 		usercon.Redirect("/user/err",302)
 	}
 	usercon.DelSession(useremail)
-	usercon.Ctx.SetCookie("UserEmail",useremail,-1)
+	usercon.Ctx.SetSecureCookie(Secret,"UserEmail",useremail,-1)
 	usercon.Redirect("/login",302)
 	//修改密码完毕后让用户重新登陆
 }
@@ -289,7 +289,7 @@ func (usercon *UserControoler) UserPassGet() {
 		user  module.User
 		ctxuser module.User
 	)
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail , _ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	id ,err =strconv.Atoi(usercon.GetString("id"))
 	if err != nil {
@@ -318,7 +318,7 @@ func (usercon *UserControoler) UserPassPost() {
 		user module.User
 		ctxuser module.User
 	)
-	useremail = usercon.Ctx.GetCookie("UserEmail")
+	useremail, _  = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	id ,err =strconv.Atoi(usercon.GetString("id"))
 	if err != nil {

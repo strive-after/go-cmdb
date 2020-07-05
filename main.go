@@ -2,13 +2,13 @@ package main
 
 import (
 	"github.com/astaxie/beego"
-	"strconv"
-	"time"
+	_ "github.com/astaxie/beego/session/redis"
 	"github.com/strive-after/go-kubernetes/controls"
 	"github.com/strive-after/go-kubernetes/module"
 	_ "github.com/strive-after/go-kubernetes/module"
 	_ "github.com/strive-after/go-kubernetes/route"
-	_ "github.com/astaxie/beego/session/redis"
+	"strconv"
+	"time"
 )
 
 func StopTimeFormat(stoptime time.Time) string{

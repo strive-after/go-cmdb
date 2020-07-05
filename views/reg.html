@@ -53,11 +53,22 @@
                 </div>
             </div>
         </div>
+        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+                <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">{{  .err }}</button>
+
+        </div>
+        {{ if .err.HasErrors }}
+            <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+            {{ range .err.Errors }}
+                <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">{{ index . 0}}</button>
+            {{ end }}
+            </div>
+        {{ end }}
 
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">注册</button>
             </div>
         </div>
     </form>

@@ -4,8 +4,11 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/strive-after/go-kubernetes/module"
 	"time"
+	"github.com/strive-after/go-kubernetes/base/errors"
 )
-
+var (
+	Secret string = "CMDB"
+)
 type LoginControllers struct {
 	beego.Controller
 }
@@ -18,9 +21,15 @@ type RegisterControllers struct {
 //登陆显示页面
 func (login *LoginControllers) LoginGet() {
 	//获取cookie
-
-	email := login.Ctx.GetCookie("UserEmail")
+	//email := login.Ctx.GetCookie("UserEmail")
+	email, _:= login.Ctx.GetSecureCookie(Secret,"UserEmail")
+	//true表示获取成功
+	//if !ok {
+	//	beego.Error("cookie获取失败")
+	//	login.Redirect("/login",302)
+	//}
 	user := login.GetSession(email)
+
 	//免密登陆  当cookie获取到值的时候  那么用cookie里面存的用户名称去获取session
 	//session里面存了用户信息如果获取到说明用户是登陆状态  获取不到接口值为nil 那么就需要登陆
 	if user == nil {
@@ -56,7 +65,7 @@ func (login *LoginControllers) LoginPost()  {
 		return
 	}
 
-	login.Ctx.SetCookie("UserEmail",user.Email,time.Second*3600)
+	login.Ctx.SetSecureCookie(Secret,"UserEmail",user.Email,time.Second*3600)
 	//修改session
 	login.SetSession(user.Email,user)
 	login.Redirect("/",302)
@@ -69,7 +78,7 @@ func (login *LoginControllers) LoginPost()  {
 func (login *LoginControllers) LoginOut() {
 	email := login.Ctx.GetCookie("UserEmail")
 	login.DelSession(email)
-	login.Ctx.SetCookie("UserEmail",email,-1)
+	login.Ctx.SetSecureCookie(Secret,"UserEmail",email,-1)
 	login.Redirect("/login",302)
 }
 
@@ -83,19 +92,21 @@ func (reg *RegisterControllers) RegPost() {
 		inputuser module.User
 		user  module.Operation   = new(module.User)
 	)
-	//user := module.User{}
+	errs :=  errors.New()
 	//将前端获取的数据直接赋值给user
 	err := reg.ParseForm(&inputuser)
 	if err != nil {
-		beego.Error(err,"RegPost获取前端传递的数据失败")
-		reg.Redirect(RegErr,302)
-		return
+		errs.Add("Reg","注册失败")
 	}
 	err  = user.Add(&inputuser)
 	if err != nil {
-		beego.Error(err,"RegPost注册失败")
-		reg.Redirect(RegErr,302)
-		return
+		errs.Add("Reg","注册失败")
+	}
+
+	if errs.HasErrors() {
+		beego.Info(errs.Errors())
+		reg.Data["err"] = errs
+		reg.Redirect("/register",302)
 	}
 
 	reg.Redirect("/login",302)
@@ -103,7 +114,11 @@ func (reg *RegisterControllers) RegPost() {
 
 
 func (login *LoginControllers)  Operation() {
-	userEmail := login.Ctx.GetCookie("UserEmail")
+	userEmail,ok  := login.Ctx.GetSecureCookie(Secret,"UserEmail")
+	if !ok {
+		beego.Error("获取cookie失败")
+		return
+	}
 	user := login.GetSession(userEmail).(module.User)
 	login.Data["UserName"] = user.Name
 	login.TplName = `operation.html`
