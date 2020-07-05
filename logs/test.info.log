@@ -1,0 +1,39 @@
+2020/07/05 21:38:16.763 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 21:51:53.634 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 21:52:47.066 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 21:54:05.675 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 21:54:19.203 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 21:54:46.820 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 21:55:44.761 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 21:56:29.916 [I] [login.go:112]  map[Reg:[注册失败]] 
+2020/07/05 21:57:25.822 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 21:59:14.842 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 21:59:48.798 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:01:09.964 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:02:10.740 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:02:41.986 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:04:03.922 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:04:43.977 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:25:03.479 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:32:10.197 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:33:19.006 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:33:39.265 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:48:48.815 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:50:35.119 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:53:04.656 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:53:08.614 [I] [route.go:18]  <nil> 
+2020/07/05 22:53:08.762 [I] [route.go:18]  <nil> 
+2020/07/05 22:53:17.421 [I] [route.go:18]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-05 22:34:17 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$IZqXSFK.nKPjiuUurz7g0.9RUYuIJgbbkVtsLtgL8FuNAzduKXqf. 12312312312 2} 
+2020/07/05 22:53:21.896 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:54:19.767 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:56:04.612 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 22:59:56.965 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 23:01:10.201 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 23:01:40.787 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 23:04:10.128 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 23:04:24.743 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/05 23:04:26.465 [I] [route.go:21]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-05 22:34:17 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$IZqXSFK.nKPjiuUurz7g0.9RUYuIJgbbkVtsLtgL8FuNAzduKXqf. 12312312312 2} 
+2020/07/05 23:04:29.916 [I] [route.go:21]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-05 22:34:17 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$IZqXSFK.nKPjiuUurz7g0.9RUYuIJgbbkVtsLtgL8FuNAzduKXqf. 12312312312 2} 
+2020/07/05 23:04:42.176 [I] [route.go:21]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-05 22:34:17 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$IZqXSFK.nKPjiuUurz7g0.9RUYuIJgbbkVtsLtgL8FuNAzduKXqf. 12312312312 2} 
+2020/07/05 23:04:48.539 [I] [route.go:21]  <nil> 
+2020/07/05 23:04:53.332 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000

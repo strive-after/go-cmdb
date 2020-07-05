@@ -13,9 +13,9 @@ type User struct {
 	gorm.Model
 	Name string  `gorm:"type:varchar(30);not null";json:"name"`   //用户名
 	Email  string  `gorm:"type:varchar(30);not null";json:"email"` //邮箱 用来注册账号
-	Password string `gorm:"type:varchar(40);not null";json:"password"`   //密码
+	Password string `gorm:"type:varchar(100);not null";json:"password"`   //密码
 	Phone string  `gorm:"type:varchar(30);not null";json:"phone"`
-	Salt string   `gorm:"type:varchar(30);not null";json:"salt"`//盐
+	//Salt string   `gorm:"type:varchar(30);not null";json:"salt"`//盐
 	Role int   `gorm:"default(0);not null"`
 	//Manage []*Manage `orm:"reverse(many)"`  //多任务
 }

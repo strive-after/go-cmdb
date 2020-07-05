@@ -14,7 +14,7 @@
             <legend style="color: #fffdfe">账号登录页面</legend>
         </fieldset>
 
-        <form class="layui-form" action="/login" method="post" lay-filter="example">
+        <form class="layui-form" action="{{ urlfor `AuthController.Login` }}"  method="POST" lay-filter="example">
             <div class="layui-form-item" style="width: 510px">
                 <label class="layui-form-label" style="color: #fffdfe">邮箱</label>
                 <div class="layui-input-block">
@@ -33,7 +33,7 @@
                 <div class="layui-input-block">
                     <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
                     <button  type="button" class="layui-btn layui-btn-normal" id="LAY-component-form-getval"><a
-                                href="/register">注册</a></button>
+                                href="{{ urlfor `AuthController.Reg` }}">注册</a></button>
                 </div>
             </div>
         </form>

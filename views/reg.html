@@ -13,7 +13,7 @@
         <legend style="color: #fffdfe">运维平台注册</legend>
     </fieldset>
 
-    <form class="layui-form" action="/register" method="post" id="dame1" style="margin-left: 90px;">
+    <form class="layui-form" action="{{ urlfor `AuthController.Reg` }}" method="post" id="dame1" style="margin-left: 90px;">
         <div class="layui-form-item" style="width: 400px;">
             <label class="layui-form-label" style="color: #fffdfe">用户名称</label>
             <div class="layui-input-block">
