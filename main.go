@@ -8,7 +8,7 @@ import (
 	"github.com/strive-after/go-kubernetes/module"
 	_ "github.com/strive-after/go-kubernetes/module"
 	_ "github.com/strive-after/go-kubernetes/route"
-	//_ "github.com/astaxie/beego/session/redis"
+	_ "github.com/astaxie/beego/session/redis"
 )
 
 func StopTimeFormat(stoptime time.Time) string{
@@ -42,8 +42,6 @@ func Role(num int) string{
 }
 
 func main() {
-	var port string
-	port  = ":"+beego.AppConfig.String("port")
 	beego.BConfig.WebConfig.Session.SessionOn = true
 	beego.BConfig.WebConfig.Session.SessionProvider = "redis"
 	beego.BConfig.WebConfig.Session.SessionProviderConfig = beego.AppConfig.String("redisurl")
@@ -53,5 +51,5 @@ func main() {
 	beego.AddFuncMap("Roles",module.Role)
 	beego.AddFuncMap("Left",IndexLeft)
 	beego.AddFuncMap("Right",IndexRight)
-	beego.Run(port)
+	beego.Run()
 }

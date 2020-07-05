@@ -18,6 +18,7 @@ type RegisterControllers struct {
 //登陆显示页面
 func (login *LoginControllers) LoginGet() {
 	//获取cookie
+
 	email := login.Ctx.GetCookie("UserEmail")
 	user := login.GetSession(email)
 	//免密登陆  当cookie获取到值的时候  那么用cookie里面存的用户名称去获取session
