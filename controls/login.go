@@ -96,16 +96,18 @@ func (reg *RegisterControllers) RegPost() {
 	//将前端获取的数据直接赋值给user
 	err := reg.ParseForm(&inputuser)
 	if err != nil {
+		beego.Error(err)
 		errs.Add("Reg","注册失败")
 	}
 	err  = user.Add(&inputuser)
 	if err != nil {
+		beego.Error(err)
 		errs.Add("Reg","注册失败")
 	}
 
 	if errs.HasErrors() {
 		beego.Info(errs.Errors())
-		reg.Data["err"] = errs
+		reg.Data["err"] = errs.Errors()
 		reg.Redirect("/register",302)
 	}
 

@@ -1,7 +1,6 @@
 package module
 
 import (
-	"crypto/md5"
 	"errors"
 	"fmt"
 	"github.com/jinzhu/gorm"
@@ -95,18 +94,22 @@ func (user *User) Add(mold interface{})  error {
 	if !ok {
 		return fmt.Errorf("类型错误不是user类型")
 	}
-	salts := salt()
+	//salts := salt()
 	//判断用户信息是否重复
 	Db.Where("name = ? or email = ? or phone = ? ",user.Name,user.Email,user.Phone).Find(&users)
 	if len(users) > 0  {
 		return fmt.Errorf("信息重复 ")
 	}
 	//加盐 并且把密码加密
-	user.Salt = salts
-	user.Password = fmt.Sprintf("%x",md5.Sum([]byte(salts+user.Password)))
+	//user.Salt = salts
+	//user.Password = fmt.Sprintf("%x",md5.Sum([]byte(salts+user.Password)))
+	user.Password ,err = HashPassword(user.Password)
+	if err != nil {
+		return fmt.Errorf("密码修改失败 %v\n",err)
+	}
 	err = Db.Create(&user).Error
 	if err != nil {
-		return  fmt.Errorf("user创建失败")
+		return  fmt.Errorf("user创建失败 %v",err)
 	}
 	return  nil
 }
@@ -119,36 +122,51 @@ func (user User) ChangePass(id uint,oldpass ,newpass string) error {
 	//修改密码分为两种情况 一种是用户修改自己账号密码 那么需要旧密码跟新密码做判断
 	//一种是管理员对用户密码初始化 这种情况进当作是 用户密码忘记 需要管理员帮忙重置密码
 	if oldpass == " "{
-		user.Salt = salt()
+		user.Password ,err = HashPassword(newpass)
+		if err != nil {
+			return fmt.Errorf("密码修改失败 %v\n",err)
+		}
+		//user.Salt = salt()
 
-		user.Password =  fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+newpass)))
+		//user.Password =  fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+newpass)))
 		err = Db.Model(User{}).Update(&user).Error
 		if  err != nil{
 			return errors.New("密码更新失败")
 		}
 	}else {
-		oldpass = fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+oldpass)))
-		if oldpass != user.Password {
-			return errors.New("密码错误")
-		}
-		user.Salt = salt()
-		user.Password =   fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+newpass)))
-		if err = Db.Model(User{}).Update(&user).Error;err != nil{
-			return errors.New("密码更新失败")
+		//oldpass = fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+oldpass)))
+		//if oldpass != user.Password {
+		//	return errors.New("密码错误")
+		//}
+		//user.Salt = salt()
+		//user.Password =   fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+newpass)))
+		//if err = Db.Model(User{}).Update(&user).Error;err != nil{
+		//	return errors.New("密码更新失败")
+		//}
+		if CheckPasswordHash(oldpass,user.Password){
+			user.Password ,err = HashPassword(newpass)
+			if err != nil {
+				return fmt.Errorf("密码修改失败 %v\n",err)
+			}
+		}else {
+			return fmt.Errorf("密码修改失败")
 		}
 	}
 	return  nil
 }
 
 func (user *User) ComparePass(passwd string) error{
-	Db.Where("email = ?",user.Email).First(&user)
+	err = Db.Where("email = ?",user.Email).First(&user).Error
 	if err != nil {
 		return  errors.New("用户不存在")
 	}
 	//密码确认  read从数据库获取user的信息
 	//用户输入的密码+ 数据库存储 的盐 然后md5  加密之后是否与数据库密码一致  一致返回true
-	passwd = fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+passwd)))
-	if passwd == user.Password {
+	//passwd = fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+passwd)))
+	//if passwd == user.Password {
+	//	return nil
+	//}
+	if CheckPasswordHash(passwd,user.Password){
 		return nil
 	}
 	return errors.New("密码错误")

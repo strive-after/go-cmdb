@@ -9,5 +9,5 @@ require (
 	github.com/gogo/protobuf v1.1.1
 	github.com/jinzhu/gorm v1.9.14
 	github.com/shiena/ansicolor v0.0.0-20151119151921-a422bbe96644 // indirect
-	golang.org/x/crypto v0.0.0-20191205180655-e7c4368fe9dd
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 )
