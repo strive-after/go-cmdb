@@ -336,3 +336,13 @@
 2020/07/06 11:59:08.548 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
 2020/07/06 11:59:17.463 [I] [route.go:18]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-05 22:34:17 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$IZqXSFK.nKPjiuUurz7g0.9RUYuIJgbbkVtsLtgL8FuNAzduKXqf. 12312312312 2} 
 2020/07/06 11:59:19.245 [I] [route.go:18]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-05 22:34:17 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$IZqXSFK.nKPjiuUurz7g0.9RUYuIJgbbkVtsLtgL8FuNAzduKXqf. 12312312312 2} 
+2020/07/06 12:45:11.969 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 12:48:32.731 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 12:52:04.895 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 12:52:21.509 [E] [users.go:274]  密码更新失败 Error 1103: Incorrect table name ''
+ 当前登陆用户 qushuaibo MyPassPost  密码更新失败 
+2020/07/06 12:52:30.445 [E] [login.go:55]  登陆失败 
+2020/07/06 12:53:12.394 [E] [users.go:274]  密码更新失败 Error 1103: Incorrect table name ''
+ 当前登陆用户 qushuaibo MyPassPost  密码更新失败 
+2020/07/06 12:53:23.945 [E] [login.go:55]  登陆失败 
+2020/07/06 12:53:35.968 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000

@@ -6,9 +6,6 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-
-
-
 type User struct {
 	gorm.Model
 	Name string  `gorm:"type:varchar(30);not null";json:"name"`   //用户名
@@ -94,15 +91,12 @@ func (user *User) Add(mold interface{})  error {
 	if !ok {
 		return fmt.Errorf("类型错误不是user类型")
 	}
-	//salts := salt()
 	//判断用户信息是否重复
 	db.Where("name = ? or email = ? or phone = ? ",user.Name,user.Email,user.Phone).Find(&users)
 	if len(users) > 0  {
 		return fmt.Errorf("信息重复 ")
 	}
 	//加盐 并且把密码加密
-	//user.Salt = salts
-	//user.Password = fmt.Sprintf("%x",md5.Sum([]byte(salts+user.Password)))
 	user.Password ,err = HashPassword(user.Password)
 	if err != nil {
 		return fmt.Errorf("密码修改失败 %v\n",err)
@@ -126,9 +120,6 @@ func (user User) ChangePass(id uint,oldpass ,newpass string) error {
 		if err != nil {
 			return fmt.Errorf("密码修改失败 %v\n",err)
 		}
-		//user.Salt = salt()
-
-		//user.Password =  fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+newpass)))
 		err = db.Model(User{}).Update(&user).Error
 		if  err != nil{
 			return errors.New("密码更新失败")
@@ -137,7 +128,11 @@ func (user User) ChangePass(id uint,oldpass ,newpass string) error {
 		if CheckPasswordHash(oldpass,user.Password){
 			user.Password ,err = HashPassword(newpass)
 			if err != nil {
-				return fmt.Errorf("密码修改失败 %v\n",err)
+				return fmt.Errorf("密码加密失败 %v\n",err)
+			}
+			err = db.Model(&User{}).Update(&user).Error
+			if err != nil {
+				return fmt.Errorf("密码更新失败 %v\n",err)
 			}
 		}else {
 			return fmt.Errorf("密码修改失败")
@@ -153,10 +148,6 @@ func (user *User) ComparePass(passwd string) error{
 	}
 	//密码确认  read从数据库获取user的信息
 	//用户输入的密码+ 数据库存储 的盐 然后md5  加密之后是否与数据库密码一致  一致返回true
-	//passwd = fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+passwd)))
-	//if passwd == user.Password {
-	//	return nil
-	//}
 	if CheckPasswordHash(passwd,user.Password){
 		return nil
 	}
@@ -187,5 +178,4 @@ func (user *User) GetAll(mold interface{}) (interface{},error) {
 		return nil,fmt.Errorf("查询失败 %v",err)
 	}
 	return users,nil
-
 }

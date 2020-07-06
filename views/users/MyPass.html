@@ -14,7 +14,7 @@
             <legend style="color: #fffdfe">密码修改</legend>
         </fieldset>
 
-        <form class="layui-form" action="/user/change/mypass" method="post" lay-filter="example">
+        <form class="layui-form" action="{{ urlfor `UserController.MyPass` }}" method="post" lay-filter="example">
             <div class="layui-form-item" style="width: 510px">
                 <label class="layui-form-label" style="color: #fffdfe">邮箱</label>
                 <div class="layui-input-block">

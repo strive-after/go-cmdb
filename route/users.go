@@ -18,7 +18,7 @@ func init() {
 	//查看自己的信息
 	beego.Router("/user/my/info",&controls.UserController{},"get:MyInfoGet;post:MyInfoPost")
 	//修改当前用户密码
-	beego.Router("/user/change/mypass",&controls.UserController{},"get:MyPassGet;post:MyPassPost")
+	//beego.Router("/user/change/mypass",&controls.UserController{},"get:MyPassGet;post:MyPassPost")
 	//管理员对用户做密码重置
 	beego.Router("/user/change/userpass",&controls.UserController{},"get:UserPassGet;post:UserPassPost")
 }

@@ -49,3 +49,9 @@
 2020/07/06 11:55:41.048 [E] [login.go:63]  获取失败%!(EXTRA *errors.errorString=record not found) 
 2020/07/06 11:55:52.802 [E] [login.go:55]  登陆失败 
 2020/07/06 11:58:11.458 [E] [login.go:63]  获取失败%!(EXTRA *errors.errorString=record not found) 
+2020/07/06 12:52:21.509 [E] [users.go:274]  密码更新失败 Error 1103: Incorrect table name ''
+ 当前登陆用户 qushuaibo MyPassPost  密码更新失败 
+2020/07/06 12:52:30.445 [E] [login.go:55]  登陆失败 
+2020/07/06 12:53:12.394 [E] [users.go:274]  密码更新失败 Error 1103: Incorrect table name ''
+ 当前登陆用户 qushuaibo MyPassPost  密码更新失败 
+2020/07/06 12:53:23.945 [E] [login.go:55]  登陆失败 

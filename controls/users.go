@@ -1,7 +1,6 @@
 package controls
 //ctxuser表示当前登陆用户
 import (
-	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/strive-after/go-kubernetes/module"
 	"strconv"
@@ -70,7 +69,6 @@ func (usercon *UserController) ChangeUserGet() {
 		return
 	}
 	user.ID = uint(id)
-
 	err = operation.GetId(&user)
 	if err != nil {
 		beego.Error(err,"当前登录用户",useremail,"ChangeUserGet 获取user失败")
@@ -127,7 +125,7 @@ func (usercon *UserController) ChangeUserPost() {
 	}
 
 
-	usercon.Redirect("/user/show?UserIndex=1",302)
+	usercon.Redirect("/user/show",302)
 }
 
 //删除用户
@@ -138,7 +136,6 @@ func (usercon *UserController) Del() {
 		useremail string
 		ctxuser module.User
 	)
-	fmt.Println("delete")
 	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	id ,err =strconv.Atoi(usercon.GetString("id"))
@@ -154,9 +151,6 @@ func (usercon *UserController) Del() {
 		usercon.Redirect(UserErr,302)
 		return
 	}
-
-
-
 	if err = operation.Del(uint(id));err != nil {
 		beego.Error(err,"当前登录用户",ctxuser.Name,"DelUserGet 删除用户失败")
 		usercon.Redirect(UserErr,302)
@@ -245,23 +239,12 @@ func (usercon *UserController)  MyInfoPost() {
 
 	usercon.Ctx.SetSecureCookie(Secret,"UserEmail",user.Email,time.Second*3600)
 	usercon.SetSession(user.Email,user)
-	usercon.Redirect("/user/show?UserIndex=1",302)
+	usercon.Redirect("/user/show",302)
 }
 
 
-//修改当前用户密码
-func (usercon *UserController) MyPassGet() {
-	var  (
-		useremail string
-		ctxuser module.User
-	)
-	useremail , _ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
-	ctxuser = usercon.GetSession(useremail).(module.User)
-	usercon.Data["Email"] = ctxuser.Email
-	usercon.TplName= "users/MyPass.html"
-}
-
-func (usercon *UserController) MyPassPost() {
+//修改当前登陆用户密码
+func (usercon *UserController) MyPass() {
 	var (
 		operation  module.Operation = new(module.User)
 		ctxuser module.User
@@ -269,22 +252,22 @@ func (usercon *UserController) MyPassPost() {
 		err error
 	)
 	useremail, _  = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
-	if usercon.GetSession(useremail) == nil {
-		beego.Error("MyPassPost  Session 不存在")
+	ctxuser = usercon.GetSession(useremail).(module.User)
+	if usercon.Ctx.Input.IsPost() {
+		oldpass := usercon.GetString("oldpass")
+		newpass := usercon.GetString("newpass")
+		if err = operation.ChangePass(ctxuser.ID,oldpass,newpass);err  !=nil {
+			beego.Error(err,"当前登陆用户",ctxuser.Name,"MyPassPost  密码更新失败")
+			usercon.Redirect("/user/err",302)
+		}
+		//修改密码完毕后让用户重新登陆
+		usercon.DelSession(useremail)
+		usercon.Ctx.SetSecureCookie(Secret,"UserEmail",useremail,-1)
 		usercon.Redirect("/login",302)
 		return
 	}
-	ctxuser = usercon.GetSession(useremail).(module.User)
-	oldpass := usercon.GetString("oldpass")
-	newpass := usercon.GetString("newpass")
-	if err = operation.ChangePass(ctxuser.ID,oldpass,newpass);err  !=nil {
-		beego.Error(err,"当前登陆用户",ctxuser.Name,"MyPassPost  密码更新失败")
-		usercon.Redirect("/user/err",302)
-	}
-	usercon.DelSession(useremail)
-	usercon.Ctx.SetSecureCookie(Secret,"UserEmail",useremail,-1)
-	usercon.Redirect("/login",302)
-	//修改密码完毕后让用户重新登陆
+	usercon.Data["Email"] = ctxuser.Email
+	usercon.TplName= "users/MyPass.html"
 }
 
 //修改用户密码
@@ -304,7 +287,6 @@ func (usercon *UserController) UserPassGet() {
 		usercon.Redirect(UserErr,302)
 		return
 	}
-
 	user.ID = uint(id)
 	if err = operation.GetId(&user);err != nil {
 		beego.Error(err,"当前登录用户",ctxuser.Name,"UserPassGet 获取user失败")
@@ -341,5 +323,5 @@ func (usercon *UserController) UserPassPost() {
 	}
 	password := usercon.GetString("PassWord")
 	user.ChangePass(uint(id)," ",password)
-	usercon.Redirect("/user/show?UserIndex=1",302)
+	usercon.Redirect("/user/show" ,302)
 }

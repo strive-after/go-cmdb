@@ -19,7 +19,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="/user/my/info">基本资料</a></dd>
-                    <dd><a href="/user/change/mypass">修改密码</a></dd>
+                    <dd><a href="{{ urlfor `UserController.MyPass` }}">修改密码</a></dd>
                     <dd><a href="{{ urlfor `AuthController.Out` }}">退出登陆</a></dd>
                 </dl>
             </li>
