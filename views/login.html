@@ -27,10 +27,6 @@
                     <input type="password" name="Password" placeholder="请输入密码" autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-                <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">{{  .errors }}</button>
-
-            </div>
             {{ if .errors.HasErrors }}
                 <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
                     {{ range .errors.Errors }}

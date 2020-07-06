@@ -14,6 +14,7 @@ type UserController struct {
 
 //显示所有用户
 func (usercon *UserController) Show() {
+	beego.Info("show")
 	var (
 		//当前登陆用户
 		useremail  string
