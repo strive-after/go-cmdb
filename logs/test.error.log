@@ -71,3 +71,23 @@
 2020/07/06 18:09:06.022 [E] [login.go:53]  登陆失败 
 2020/07/06 18:09:25.695 [E] [users.go:64]  strconv.Atoi: parsing "": invalid syntax 当前登录用户 qushuaibo ChangeUserPost 获取id 失败 
 2020/07/06 18:18:07.312 [E] [login.go:53]  登陆失败 
+2020/07/06 18:27:30.806 [E] [server.go:2807]  template: login.html:34:22: executing "login.html" at <.err.HasErrors>: nil pointer evaluating interface {}.HasErrors
+2020/07/06 18:27:31.123 [E] [server.go:2807]  template: login.html:34:22: executing "login.html" at <.err.HasErrors>: nil pointer evaluating interface {}.HasErrors
+2020/07/06 18:28:43.293 [E] [login.go:54]  登陆失败 
+2020/07/06 18:28:45.705 [E] [login.go:54]  登陆失败 
+2020/07/06 18:29:18.001 [E] [login.go:54]  登陆失败 
+2020/07/06 18:35:27.794 [E] [login.go:55]  登陆失败，2 
+2020/07/06 18:36:28.475 [E] [errors.go:14]  map[Login:[登陆失败,1]] 
+2020/07/06 18:36:28.475 [E] [login.go:55]  登陆失败，2 
+2020/07/06 18:37:16.989 [E] [errors.go:14]  map[Login:[登陆失败,1]] 
+2020/07/06 18:37:16.990 [E] [login.go:55]  登陆失败，2 &{map[Login:[登陆失败,1]]} 
+2020/07/06 18:41:22.101 [E] [errors.go:14]  map[Login:[登陆失败,1]] 
+2020/07/06 18:41:22.102 [E] [login.go:54]  登陆失败，2 &{map[Login:[登陆失败,1]]} 
+2020/07/06 18:42:46.891 [E] [errors.go:14]  map[Login:[登陆失败,1]] 
+2020/07/06 18:42:46.891 [E] [login.go:54]  登陆失败，2 &{map[Login:[登陆失败,1]]} 
+2020/07/06 18:43:45.969 [E] [errors.go:14]  map[Login:[登陆失败,1]] 
+2020/07/06 18:43:45.969 [E] [login.go:54]  登陆失败，2 &{map[Login:[登陆失败,1]]} 
+2020/07/06 18:46:13.074 [E] [errors.go:14]  map[Login:[登陆失败,1]] 
+2020/07/06 18:46:13.074 [E] [login.go:55]  登陆失败，2 &{map[Login:[登陆失败,1]]} 
+2020/07/06 18:47:49.642 [E] [errors.go:14]  map[Login:[登陆失败,1]] 
+2020/07/06 18:47:49.642 [E] [login.go:55]  登陆失败，2 &{map[Login:[登陆失败,1]]} 

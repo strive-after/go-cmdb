@@ -235,3 +235,5 @@
 2020/07/05 23:01:26.475 [D] [server.go:2802]  |      127.0.0.1|[41m 503 [0m|    16.9552ms| nomatch|[44m GET     [0m /favicon.ico
 2020/07/06 16:10:17.079 [D] [controller.go:306]  template Execute err: template: users/alluser.html:26:71: executing "users/alluser.html" at <.user.ID>: can't evaluate field user in type module.User
 2020/07/06 17:01:34.962 [D] [controller.go:306]  template Execute err: html/template:users/alluser.html: "\"" in attribute name: "layui-btn-radius\" right=\"2\" >查看<"
+2020/07/06 18:27:30.806 [D] [controller.go:306]  template Execute err: template: login.html:34:22: executing "login.html" at <.err.HasErrors>: nil pointer evaluating interface {}.HasErrors
+2020/07/06 18:27:31.123 [D] [controller.go:306]  template Execute err: template: login.html:34:22: executing "login.html" at <.err.HasErrors>: nil pointer evaluating interface {}.HasErrors

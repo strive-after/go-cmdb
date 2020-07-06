@@ -1,9 +1,11 @@
 package controls
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
-	"github.com/strive-after/go-kubernetes/base/errors"
+	"github.com/strive-after/go-kubernetes/base/baseerr"
 	"github.com/strive-after/go-kubernetes/module"
+	"net/http"
 	"time"
 )
 var (
@@ -41,34 +43,36 @@ func (login *AuthController) Login()  {
 		user module.User
 		err error
 	)
-	errs := errors.New()
+	fmt.Println(1)
+	errs := baseerr.New()
 	//如果是get直接加载页面
 	//如果是post 做数据 处理
 	if login.Ctx.Input.IsPost() {
 		if err := login.ParseForm(&user);err != nil {
 			errs.Add("Login","登陆失败")
-			return
+			beego.Error("登陆失败，1")
 		}
 		if err = user.ComparePass(user.Password);err != nil{
-			errs.Add("Login","登陆失败")
-			beego.Error("登陆失败")
-			login.Redirect("/auth/login",302)
-			return
+			errs.Add("Login","登陆失败,1")
+			beego.Error("登陆失败，2",errs)
+			login.Redirect("/auth/login",http.StatusFound)
 		}
 
 		//如果记住用户名那么cookie保存时间为3600s
 		err = user.Get("email",user.Email)
 		if err != nil {
-			errs.Add("Login","登陆失败")
+			errs.Add("Login","登陆失败,查询错误")
 			beego.Error(err)
-			login.Redirect("/auth/login",302)
-			return
+			login.Redirect("/auth/login",http.StatusFound)
 		}
-		login.Ctx.SetSecureCookie(Secret,"UserEmail",user.Email,time.Second*3600)
-		login.SetSession(user.Email,user)
-		login.Redirect("/",302)
-		return
+		if !errs.HasErrors() {
+			login.Ctx.SetSecureCookie(Secret,"UserEmail",user.Email,time.Second*3600)
+			login.SetSession(user.Email,user)
+			login.Redirect("/",http.StatusFound)
+		}
 	}
+	beego.Info(len(errs.ErrorsByKey("Login")))
+	login.Data["errors"] = errs
 	login.TplName = `login.html`
 }
 
@@ -92,7 +96,7 @@ func (reg *AuthController) Reg() {
 		inputuser module.User
 		user  module.Operation   = new(module.User)
 	)
-	errs :=  errors.New()
+	errs :=  baseerr.New()
 	if reg.Ctx.Input.IsPost() {
 		//将前端获取的数据直接赋值给user
 		err := reg.ParseForm(&inputuser)

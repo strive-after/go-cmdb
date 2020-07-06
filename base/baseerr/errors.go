@@ -1,6 +1,6 @@
-package errors
+package baseerr
 
-
+import "github.com/astaxie/beego"
 
 type Errors struct {
 	errors map[string][]string
@@ -11,6 +11,7 @@ func (e *Errors) Add(key , err string) {
 		e.errors[key] = make([]string, 0, 5)
 	}
 	e.errors[key] = append(e.errors[key],err)
+	beego.Error(e.errors)
 }
 //返回错误列表
 func (e *Errors) Errors() map[string][]string {
