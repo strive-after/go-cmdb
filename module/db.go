@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	Db *gorm.DB
+	db *gorm.DB
 	//db连接信息
 	dbinfo string
 	RedisClient *redis.Client
@@ -39,7 +39,7 @@ func init() {
 	//拼接数据库连接信息
 	dbinfo = NewDatabase()
 	//初始化db
-	Db,err  = gorm.Open("mysql", dbinfo)
+	db,err  = gorm.Open("mysql", dbinfo)
 	if err != nil {
 		fmt.Println("mysql打开失败",err)
 		return
@@ -47,17 +47,18 @@ func init() {
 	//创建表关联user结构体
 	redisurl = beego.AppConfig.String("redisurl")
 	redispassword = beego.AppConfig.String("redispassword")
-	Db.AutoMigrate(&User{})
-	 RedisClient = redis.NewClient(&redis.Options{
-		Addr:               redisurl,
-		Password:           redispassword,
-		DB:                 0,
-	})
-	 _,err := RedisClient.Ping().Result()
-	 if err != nil {
-	 	beego.Error("redis连接失败,redis地址",redisurl,err)
-	 	return
-	 }
+
+	db.AutoMigrate(&User{})
+	// RedisClient = redis.NewClient(&redis.Options{
+	//	Addr:               redisurl,
+	//	Password:           redispassword,
+	//	db :                 0,
+	//})
+	// _,err := RedisClient.Ping().Result()
+	// if err != nil {
+	// 	beego.Error("redis连接失败,redis地址",redisurl,err)
+	// 	return
+	// }
 }
 
 

@@ -320,3 +320,19 @@
 2020/07/05 23:04:42.176 [I] [route.go:21]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-05 22:34:17 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$IZqXSFK.nKPjiuUurz7g0.9RUYuIJgbbkVtsLtgL8FuNAzduKXqf. 12312312312 2} 
 2020/07/05 23:04:48.539 [I] [route.go:21]  <nil> 
 2020/07/05 23:04:53.332 [I] [asm_amd64.s:1357]  http server Running on http://0.0.0.0:9000
+2020/07/06 10:22:58.544 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 11:53:07.492 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 11:55:16.923 [I] [route.go:18]  <nil> 
+2020/07/06 11:55:17.633 [I] [route.go:18]  <nil> 
+2020/07/06 11:55:26.611 [E] [login.go:63]  获取失败%!(EXTRA *errors.errorString=record not found) 
+2020/07/06 11:55:26.876 [I] [route.go:18]  <nil> 
+2020/07/06 11:55:41.048 [E] [login.go:63]  获取失败%!(EXTRA *errors.errorString=record not found) 
+2020/07/06 11:55:41.305 [I] [route.go:18]  <nil> 
+2020/07/06 11:55:52.802 [E] [login.go:55]  登陆失败 
+2020/07/06 11:55:53.070 [I] [route.go:18]  <nil> 
+2020/07/06 11:58:02.565 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 11:58:11.458 [E] [login.go:63]  获取失败%!(EXTRA *errors.errorString=record not found) 
+2020/07/06 11:58:11.714 [I] [route.go:18]  <nil> 
+2020/07/06 11:59:08.548 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 11:59:17.463 [I] [route.go:18]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-05 22:34:17 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$IZqXSFK.nKPjiuUurz7g0.9RUYuIJgbbkVtsLtgL8FuNAzduKXqf. 12312312312 2} 
+2020/07/06 11:59:19.245 [I] [route.go:18]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-05 22:34:17 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$IZqXSFK.nKPjiuUurz7g0.9RUYuIJgbbkVtsLtgL8FuNAzduKXqf. 12312312312 2} 

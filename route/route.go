@@ -15,7 +15,6 @@ var filtFunc = func(ctx *context.Context) {
 	}
 	useremail,_  := ctx.GetSecureCookie(controls.Secret,"UserEmail")
 	user := ctx.Input.Session(useremail)
-	beego.Info(user)
 	if user == nil {
 		ctx.Redirect(301,"/auth/login")
 	}

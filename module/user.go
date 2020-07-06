@@ -37,7 +37,7 @@ func (user *User) GetId(mold interface{}) error{
 	if !ok {
 		return fmt.Errorf("类型错误不是user类型")
 	}
-	err = Db.Model(&User{}).Where("id = ? ",user.ID).First(&user).Error
+	err = db.Model(&User{}).Where("id = ? ",user.ID).First(&user).Error
 	if err != nil {
 		return fmt.Errorf("id 无效 %v\n",err)
 	}
@@ -56,20 +56,20 @@ func (user *User) Update(mold interface{}) error {
 	phone = user.Phone
 	email = user.Email
 	name = user.Name
-	Db.Model(&User{}).Where("id != ? ",user.ID).Where(" name = ? or phone = ? or email = ?",name,phone,email).Find(&users)
+	db.Model(&User{}).Where("id != ? ",user.ID).Where(" name = ? or phone = ? or email = ?",name,phone,email).Find(&users)
 	if len(users) > 0 {
 		fmt.Println(users)
 		return fmt.Errorf("信息重复")
 	}
 	//这里没有做重复检测  随后会加
-	err = Db.Model(&User{}).First(&user,"id = ?",user.ID).Error
+	err = db.Model(&User{}).First(&user,"id = ?",user.ID).Error
 	if err != nil {
 		return fmt.Errorf("user 赋值失败",err)
 	}
 	user.Email = email
 	user.Phone = phone
 	user.Name = name
-	err = Db.Model(&User{}).Update(&user).Error
+	err = db.Model(&User{}).Update(&user).Error
 	if err != nil {
 		return fmt.Errorf("user更新失败",err)
 	}
@@ -78,7 +78,7 @@ func (user *User) Update(mold interface{}) error {
 
 
 func (user User) Del(id uint)  error{
-	err = Db.Model(&User{}).Where("id = ? ",id).Delete(&User{}).Error
+	err = db.Model(&User{}).Where("id = ? ",id).Delete(&User{}).Error
 	if err != nil {
 		return  errors.New("删除失败")
 	}
@@ -96,7 +96,7 @@ func (user *User) Add(mold interface{})  error {
 	}
 	//salts := salt()
 	//判断用户信息是否重复
-	Db.Where("name = ? or email = ? or phone = ? ",user.Name,user.Email,user.Phone).Find(&users)
+	db.Where("name = ? or email = ? or phone = ? ",user.Name,user.Email,user.Phone).Find(&users)
 	if len(users) > 0  {
 		return fmt.Errorf("信息重复 ")
 	}
@@ -107,7 +107,7 @@ func (user *User) Add(mold interface{})  error {
 	if err != nil {
 		return fmt.Errorf("密码修改失败 %v\n",err)
 	}
-	err = Db.Create(&user).Error
+	err = db.Create(&user).Error
 	if err != nil {
 		return  fmt.Errorf("user创建失败 %v",err)
 	}
@@ -129,20 +129,11 @@ func (user User) ChangePass(id uint,oldpass ,newpass string) error {
 		//user.Salt = salt()
 
 		//user.Password =  fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+newpass)))
-		err = Db.Model(User{}).Update(&user).Error
+		err = db.Model(User{}).Update(&user).Error
 		if  err != nil{
 			return errors.New("密码更新失败")
 		}
 	}else {
-		//oldpass = fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+oldpass)))
-		//if oldpass != user.Password {
-		//	return errors.New("密码错误")
-		//}
-		//user.Salt = salt()
-		//user.Password =   fmt.Sprintf("%x",md5.Sum([]byte(user.Salt+newpass)))
-		//if err = Db.Model(User{}).Update(&user).Error;err != nil{
-		//	return errors.New("密码更新失败")
-		//}
 		if CheckPasswordHash(oldpass,user.Password){
 			user.Password ,err = HashPassword(newpass)
 			if err != nil {
@@ -156,7 +147,7 @@ func (user User) ChangePass(id uint,oldpass ,newpass string) error {
 }
 
 func (user *User) ComparePass(passwd string) error{
-	err = Db.Where("email = ?",user.Email).First(&user).Error
+	err = db.Where("email = ?",user.Email).First(&user).Error
 	if err != nil {
 		return  errors.New("用户不存在")
 	}
@@ -173,10 +164,28 @@ func (user *User) ComparePass(passwd string) error{
 }
 
 
-func (user *User) Get(mold,value interface{}) error{
-	err = Db.Model(&User{}).Where(" email = ? ",value).First(&user).Error
-	if err != nil {
-		return fmt.Errorf("获取失败",err)
+func (user *User) Get(mold string,value interface{}) error{
+	switch mold {
+	case "email":
+		err = db.Model(&User{}).Where(" email = ? ",value).First(&user).Error
+		if err != nil {
+			return fmt.Errorf("获取失败",err)
+		}
 	}
 	return nil
+}
+
+
+func (user *User) GetAll(mold interface{}) (interface{},error) {
+	var users []User
+	users ,ok = mold.([]User)
+	if !ok {
+		return nil,fmt.Errorf("类型错误不是users类型")
+	}
+	err = db.Model(&User{}).Find(&users).Error
+	if err != nil {
+		return nil,fmt.Errorf("查询失败 %v",err)
+	}
+	return users,nil
+
 }

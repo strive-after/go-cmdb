@@ -45,3 +45,7 @@
 2020/07/05 23:01:43.642 [E] [server.go:2802]  gob: name not registered for interface: "github.com/strive-after/go-kubernetes/module.User"
 2020/07/05 23:04:11.154 [E] [server.go:2802]  gob: name not registered for interface: "github.com/strive-after/go-kubernetes/module.User"
 2020/07/05 23:04:11.190 [E] [server.go:2802]  gob: name not registered for interface: "github.com/strive-after/go-kubernetes/module.User"
+2020/07/06 11:55:26.611 [E] [login.go:63]  获取失败%!(EXTRA *errors.errorString=record not found) 
+2020/07/06 11:55:41.048 [E] [login.go:63]  获取失败%!(EXTRA *errors.errorString=record not found) 
+2020/07/06 11:55:52.802 [E] [login.go:55]  登陆失败 
+2020/07/06 11:58:11.458 [E] [login.go:63]  获取失败%!(EXTRA *errors.errorString=record not found) 

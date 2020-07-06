@@ -6,21 +6,19 @@ import (
 )
 
 func init() {
-
-	//添加用户
-	//beego.Router("/user/add",&controls.UserControoler{},"get:AddUserGet;post:AddUserPost")
+	beego.AutoRouter(&controls.UserController{})
 	//显示所有用户
-	beego.Router("/user/show",&controls.UserControoler{},"get:ShowUserGet")
+	//beego.Router("/user/show",&controls.UserController{},"get:ShowUserGet")
 	//查看用户信息
-	beego.Router("/user/info",&controls.UserControoler{},"get:UserInfo")
+	//beego.Router("/user/info",&controls.UserController{},"get:UserInfo")
 	//修改用户
-	beego.Router("/user/change",&controls.UserControoler{},"get:ChangeUserGet;post:ChangeUserPost")
+	beego.Router("/user/change",&controls.UserController{},"get:ChangeUserGet;post:ChangeUserPost")
 	//删除用户
-	beego.Router("/user/del",&controls.UserControoler{},"get:Del")
+	//beego.Router("/user/del",&controls.UserController{},"get:Del")
 	//查看自己的信息
-	beego.Router("/user/my/info",&controls.UserControoler{},"get:MyInfoGet;post:MyInfoPost")
+	beego.Router("/user/my/info",&controls.UserController{},"get:MyInfoGet;post:MyInfoPost")
 	//修改当前用户密码
-	beego.Router("/user/change/mypass",&controls.UserControoler{},"get:MyPassGet;post:MyPassPost")
+	beego.Router("/user/change/mypass",&controls.UserController{},"get:MyPassGet;post:MyPassPost")
 	//管理员对用户做密码重置
-	beego.Router("/user/change/userpass",&controls.UserControoler{},"get:UserPassGet;post:UserPassPost")
+	beego.Router("/user/change/userpass",&controls.UserController{},"get:UserPassGet;post:UserPassPost")
 }

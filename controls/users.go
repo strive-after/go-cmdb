@@ -8,28 +8,35 @@ import (
 	"time"
 )
 
-type UserControoler struct {
+type UserController struct {
 	beego.Controller
 }
 
 
 //显示所有用户
-func (usercon *UserControoler) ShowUserGet() {
+func (usercon *UserController) Show() {
 	var (
 		//当前登陆用户
 		useremail  string
 		ctxuser module.User
 		//所有用户列表
 		users []module.User
+		operation   module.Operation = new(module.User)
 		//当前页码
+		ok bool
 	)
-
 	//获取当前登录用户
 	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
-	err = module.Db.Model(module.User{}).Find(&users).Error
+	allusers ,err :=  operation.GetAll(users)
 	if err != nil {
-		beego.Error("用户列表获取失败")
+		beego.Error("获取失败",err)
+		usercon.Redirect(UserErr,302)
+		return
+	}
+	users ,ok = allusers.([]module.User)
+	if !ok {
+		beego.Error("转换失败",err)
 		usercon.Redirect(UserErr,302)
 		return
 	}
@@ -44,7 +51,7 @@ func (usercon *UserControoler) ShowUserGet() {
 
 
 //修改用户信息
-func (usercon *UserControoler) ChangeUserGet() {
+func (usercon *UserController) ChangeUserGet() {
 	var (
 		//当前登录用户
 		//被修改用户
@@ -79,7 +86,7 @@ func (usercon *UserControoler) ChangeUserGet() {
 }
 
 //修改用户信息
-func (usercon *UserControoler) ChangeUserPost() {
+func (usercon *UserController) ChangeUserPost() {
 	var (
 		operation   module.Operation = new(module.User)
 		user  module.User
@@ -124,7 +131,7 @@ func (usercon *UserControoler) ChangeUserPost() {
 }
 
 //删除用户
-func (usercon *UserControoler) Del() {
+func (usercon *UserController) Del() {
 	var (
 		id int
 		operation  module.Operation= new(module.User)
@@ -160,7 +167,7 @@ func (usercon *UserControoler) Del() {
 
 
 
-func (usercon *UserControoler) UserInfo() {
+func (usercon *UserController) Info() {
 	var (
 		operation  module.Operation = new(module.User)
 		id int
@@ -189,7 +196,7 @@ func (usercon *UserControoler) UserInfo() {
 }
 
 //查看当前登录用户以及修改当前登录用户信息
-func (usercon *UserControoler)  MyInfoGet() {
+func (usercon *UserController)  MyInfoGet() {
 	var (
 		useremail string
 		ctxuser module.User
@@ -207,7 +214,7 @@ func (usercon *UserControoler)  MyInfoGet() {
 	usercon.Data["user"] = ctxuser
 }
 //修改个人资料
-func (usercon *UserControoler)  MyInfoPost() {
+func (usercon *UserController)  MyInfoPost() {
 	var (
 		operation  module.Operation = new(module.User)
 		user module.User
@@ -243,7 +250,7 @@ func (usercon *UserControoler)  MyInfoPost() {
 
 
 //修改当前用户密码
-func (usercon *UserControoler) MyPassGet() {
+func (usercon *UserController) MyPassGet() {
 	var  (
 		useremail string
 		ctxuser module.User
@@ -254,7 +261,7 @@ func (usercon *UserControoler) MyPassGet() {
 	usercon.TplName= "users/MyPass.html"
 }
 
-func (usercon *UserControoler) MyPassPost() {
+func (usercon *UserController) MyPassPost() {
 	var (
 		operation  module.Operation = new(module.User)
 		ctxuser module.User
@@ -281,7 +288,7 @@ func (usercon *UserControoler) MyPassPost() {
 }
 
 //修改用户密码
-func (usercon *UserControoler) UserPassGet() {
+func (usercon *UserController) UserPassGet() {
 	var (
 		operation  module.Operation = new(module.User)
 		id int
@@ -310,7 +317,7 @@ func (usercon *UserControoler) UserPassGet() {
 	usercon.Layout = "layout.html"
 }
 
-func (usercon *UserControoler) UserPassPost() {
+func (usercon *UserController) UserPassPost() {
 	var (
 		operation  module.Operation = new(module.User)
 		id int
