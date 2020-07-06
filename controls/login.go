@@ -1,11 +1,10 @@
 package controls
 
 import (
-	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/strive-after/go-kubernetes/base/errors"
 	"github.com/strive-after/go-kubernetes/module"
 	"time"
-	"github.com/strive-after/go-kubernetes/base/errors"
 )
 var (
 	Secret string = "CMDB"
@@ -46,7 +45,6 @@ func (login *AuthController) Login()  {
 	//如果是get直接加载页面
 	//如果是post 做数据 处理
 	if login.Ctx.Input.IsPost() {
-		fmt.Println(1)
 		if err := login.ParseForm(&user);err != nil {
 			errs.Add("Login","获取失败")
 			return

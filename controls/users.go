@@ -84,7 +84,7 @@ func (usercon *UserController) ChangeUserGet() {
 }
 
 //修改用户信息
-func (usercon *UserController) ChangeUserPost() {
+func (usercon *UserController) ChangeUser() {
 	var (
 		operation   module.Operation = new(module.User)
 		user  module.User
@@ -100,32 +100,37 @@ func (usercon *UserController) ChangeUserPost() {
 		usercon.Redirect(UserErr,302)
 		return
 	}
-	err = usercon.ParseForm(&user)
-	if err != nil {
-		beego.Error(err,"当前登录用户",ctxuser.Name,"ChangeUserPost 获取前端传输用户 失败")
-		usercon.Redirect(UserErr,302)
+	if usercon.Ctx.Input.IsPost() {
+		err = usercon.ParseForm(&user)
+		if err != nil {
+			beego.Error(err, "当前登录用户", ctxuser.Name, "ChangeUserPost 获取前端传输用户 失败")
+			usercon.Redirect(UserErr, 302)
+			return
+		}
+		user.ID = uint(id)
+		if err = operation.Update(&user); err != nil {
+			beego.Error(err, "当前登录用户", ctxuser.Name, "ChangeUserPost 更新用户信息失败 失败")
+			usercon.Redirect(UserErr, 302)
+			return
+		}
+		err = operation.GetId(&user)
+		if err != nil {
+			beego.Error(err, "当前登录用户", ctxuser.Name, "ChangeUserPost 获取用户失败 失败")
+			usercon.Redirect(UserErr, 302)
+			return
+		}
+		//当用户修改的是自己的时候  把session中存放的user信息修改一下 保持最新
+		if uint(id) == ctxuser.ID {
+			usercon.Ctx.SetSecureCookie(Secret, "UserEmail", user.Email, time.Second*3600)
+			usercon.SetSession(user.Email, user)
+		}
+		usercon.Redirect("/user/show", 302)
 		return
 	}
-	user.ID = uint(id)
-	if err = operation.Update(&user) ;err != nil {
-		beego.Error(err,"当前登录用户",ctxuser.Name,"ChangeUserPost 更新用户信息失败 失败")
-		usercon.Redirect(UserErr,302)
-		return
-	}
-	err  = operation.GetId(&user)
-	if err != nil {
-		beego.Error(err, "当前登录用户", ctxuser.Name, "ChangeUserPost 获取用户失败 失败")
-		usercon.Redirect(UserErr, 302)
-		return
-	}
-	//当用户修改的是自己的时候  把session中存放的user信息修改一下 保持最新
-	if uint(id) == ctxuser.ID {
-		usercon.Ctx.SetSecureCookie(Secret,"UserEmail",user.Email,time.Second*3600)
-		usercon.SetSession(user.Email,user)
-	}
-
-
-	usercon.Redirect("/user/show",302)
+	usercon.Data["UserName"] = ctxuser.Name
+	usercon.Data["user"] = user
+	usercon.Layout = `layout.html`
+	usercon.TplName = `users/ChangeUser.html`
 }
 
 //删除用户

@@ -12,7 +12,7 @@ func init() {
 	//查看用户信息
 	//beego.Router("/user/info",&controls.UserController{},"get:UserInfo")
 	//修改用户
-	beego.Router("/user/change",&controls.UserController{},"get:ChangeUserGet;post:ChangeUserPost")
+	//beego.Router("/user/change",&controls.UserController{},"get:ChangeUserGet;post:ChangeUserPost")
 	//删除用户
 	//beego.Router("/user/del",&controls.UserController{},"get:Del")
 	//查看自己的信息

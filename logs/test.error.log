@@ -55,3 +55,11 @@
 2020/07/06 12:53:12.394 [E] [users.go:274]  密码更新失败 Error 1103: Incorrect table name ''
  当前登陆用户 qushuaibo MyPassPost  密码更新失败 
 2020/07/06 12:53:23.945 [E] [login.go:55]  登陆失败 
+2020/07/06 15:49:04.933 [E] [template.go:176]  parse template err: users/alluser.html template: users/alluser.html:26: function "UrlFor" not defined
+2020/07/06 15:49:24.678 [E] [template.go:176]  parse template err: users/alluser.html template: users/alluser.html:26: function "UrlFor" not defined
+2020/07/06 15:49:39.092 [E] [template.go:176]  parse template err: users/ChangeUser.html template: users/ChangeUser.html:2: function "UrlFor" not defined
+2020/07/06 15:50:04.581 [E] [template.go:176]  parse template err: users/ChangeUser.html template: users/ChangeUser.html:2: function "UrlFor" not defined
+2020/07/06 15:51:07.123 [E] [login.go:55]  登陆失败 
+2020/07/06 15:54:12.860 [E] [users.go:99]  strconv.Atoi: parsing "{{ .user.ID }}": invalid syntax 当前登录用户 qushuaibo ChangeUserPost 获取id 失败 
+2020/07/06 15:54:31.847 [E] [users.go:99]  strconv.Atoi: parsing "{{ .user.ID }}": invalid syntax 当前登录用户 qushuaibo ChangeUserPost 获取id 失败 
+2020/07/06 16:10:17.079 [E] [server.go:2807]  template: users/alluser.html:26:71: executing "users/alluser.html" at <.user.ID>: can't evaluate field user in type module.User
