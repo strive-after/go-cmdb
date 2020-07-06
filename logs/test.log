@@ -362,3 +362,31 @@
 2020/07/06 16:10:17.079 [E] [server.go:2807]  template: users/alluser.html:26:71: executing "users/alluser.html" at <.user.ID>: can't evaluate field user in type module.User
 2020/07/06 16:21:12.221 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
 2020/07/06 16:23:05.305 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 16:56:01.190 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 16:56:02.411 [E] [users.go:146]  strconv.Atoi: parsing "": invalid syntax 当前登录用户 qushuaibo UserInfo 获取id失败 
+2020/07/06 17:01:27.975 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 17:01:34.962 [D] [controller.go:306]  template Execute err: html/template:users/alluser.html: "\"" in attribute name: "layui-btn-radius\" right=\"2\" >查看<"
+2020/07/06 17:01:34.963 [E] [server.go:2807]  html/template:users/alluser.html: "\"" in attribute name: "layui-btn-radius\" right=\"2\" >查看<"
+2020/07/06 17:01:57.083 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 17:02:57.897 [E] [users.go:146]  strconv.Atoi: parsing "": invalid syntax 当前登录用户 qushuaibo UserInfo 获取id失败 
+2020/07/06 17:04:00.616 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 17:08:52.162 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 17:08:56.673 [I] [users.go:95]  {{0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}     0} 
+2020/07/06 17:11:13.675 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 17:11:15.616 [I] [users.go:101]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-06 12:54:04 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$Cs3BvNtQJQFfNl/cOgtjz.CR0gxMqMH1P7FuOivIs3SvaGajcne6e 12312312312 2} 
+2020/07/06 17:11:19.990 [I] [users.go:101]  {{1 2020-07-05 21:57:51 +0800 CST 2020-07-06 12:54:04 +0800 CST <nil>} qushuaibo qushuaibo@163.com $2a$14$Cs3BvNtQJQFfNl/cOgtjz.CR0gxMqMH1P7FuOivIs3SvaGajcne6e 12312312312 2} 
+2020/07/06 17:11:30.076 [E] [users.go:64]  strconv.Atoi: parsing "": invalid syntax 当前登录用户 qushuaibo ChangeUserPost 获取id 失败 
+2020/07/06 18:03:25.112 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 18:04:32.240 [E] [users.go:279]  strconv.Atoi: parsing "": invalid syntax 当前登录用户 qushuaibo UserPassPost 获取id失败 
+2020/07/06 18:05:07.832 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 18:08:39.613 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 18:09:06.022 [E] [login.go:53]  登陆失败 
+2020/07/06 18:09:25.695 [E] [users.go:64]  strconv.Atoi: parsing "": invalid syntax 当前登录用户 qushuaibo ChangeUserPost 获取id 失败 
+2020/07/06 18:10:18.557 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 18:11:49.831 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 18:13:00.508 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 18:13:29.029 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 18:15:08.146 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 18:16:37.806 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 18:17:24.898 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/06 18:18:07.312 [E] [login.go:53]  登陆失败 

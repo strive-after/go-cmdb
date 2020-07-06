@@ -1,5 +1,5 @@
 <body class="layui-layout-body" style="background: url('../../static/images/cat.png');background-size: cover;opacity: 2;">
-<form class="layui-form" action="/user/change/userpass?id={{ .user.ID }}" method="post" id="dame1" style="margin-left: 90px;">
+<form class="layui-form" action="{{ urlfor `UserController.UserPass` }}?id={{.user.ID}}" method="post" id="dame1" style="margin-left: 90px;">
     <p>修改{{.user.Name}}的密码</p>
     <div class="layui-form-item" style="width: 510px">
         <label class="layui-form-label" style="color: #fffdfe">新密码</label>

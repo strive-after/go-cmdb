@@ -27,11 +27,12 @@ func init()  {
 	beego.InsertFilter("/*",beego.BeforeRouter,filtFunc)
 	//beego.InsertFilter("/user/show",beego.BeforeRouter,handlers.RestfulHandler())
 
-	//包含reg跟login
+	// 登陆页面包含 reg跟login
 	beego.AutoRouter(&controls.AuthController{})
 	//运维平台总页面
 	beego.Router("/",&controls.Operation{})
-	//登陆页面
+	//用户页面
+	beego.AutoRouter(&controls.UserController{})
 }
 
 

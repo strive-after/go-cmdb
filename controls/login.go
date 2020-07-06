@@ -46,20 +46,22 @@ func (login *AuthController) Login()  {
 	//如果是post 做数据 处理
 	if login.Ctx.Input.IsPost() {
 		if err := login.ParseForm(&user);err != nil {
-			errs.Add("Login","获取失败")
+			errs.Add("Login","登陆失败")
 			return
 		}
 		if err = user.ComparePass(user.Password);err != nil{
+			errs.Add("Login","登陆失败")
 			beego.Error("登陆失败")
-			login.Redirect("/LoginErr",302)
+			login.Redirect("/auth/login",302)
 			return
 		}
 
 		//如果记住用户名那么cookie保存时间为3600s
 		err = user.Get("email",user.Email)
 		if err != nil {
+			errs.Add("Login","登陆失败")
 			beego.Error(err)
-			login.Redirect("/LoginErr",302)
+			login.Redirect("/auth/login",302)
 			return
 		}
 		login.Ctx.SetSecureCookie(Secret,"UserEmail",user.Email,time.Second*3600)

@@ -18,7 +18,7 @@
                     {{$.UserName}}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="/user/my/info">基本资料</a></dd>
+                    <dd><a href="{{ urlfor `UserController.MyInfo` }}">基本资料</a></dd>
                     <dd><a href="{{ urlfor `UserController.MyPass` }}">修改密码</a></dd>
                     <dd><a href="{{ urlfor `AuthController.Out` }}">退出登陆</a></dd>
                 </dl>
@@ -33,7 +33,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">用户管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="/user/show?UserIndex=1">用户列表</a></dd>
+                        <dd><a href="{{ urlfor `UserController.Show`}}">用户列表</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item  ">

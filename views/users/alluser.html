@@ -22,9 +22,9 @@
         <td>{{ .Phone }}</td>
         <td>
             {{if compare $.conuserrole 2}}
-            <a href="/user/info?id={{.ID}}" class="layui-btn layui-btn-radius" right="2" >查看</a>
+            <a href="{{ urlfor `UserController.Info`}}?id={{.ID}}" class="layui-btn layui-btn-radius" right="2" >查看</a>
             <a href="{{ urlfor `UserController.ChangeUser`}}?id={{.ID}}" class="layui-btn layui-btn-radius layui-btn-warm" >编辑</a>
-            <a href="/user/change/userpass?id={{.ID}}" class="layui-btn layui-btn-radius layui-btn-warm" >重置密码</a>
+            <a href="{{ urlfor `UserController.UserPass` }}?id={{.ID}}"class="layui-btn layui-btn-radius layui-btn-warm" >重置密码</a>
             <a href="{{ urlfor `UserController.Del`}}?id={{.ID}}" class="layui-btn layui-btn-radius layui-btn-danger" methods="delete" >删除</a>
             {{end}}
         </td>
