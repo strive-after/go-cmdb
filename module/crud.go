@@ -35,3 +35,14 @@ type UserShare interface {
 	ComparePass(passwd string) error
 	ChangePass(id uint,oldpass ,newpass string) error
 }
+
+
+func NewOperation(mold interface{}) Operation{
+	var operation  Operation
+	switch mold.(type) {
+	case *User:
+		operation = mold.(*User)
+		return operation
+	}
+	return nil
+}

@@ -21,10 +21,10 @@ func (usercon *UserController) Show() {
 		ctxuser module.User
 		//所有用户列表
 		users []module.User
-		operation   module.Operation = new(module.User)
 		//当前页码
 		ok bool
 	)
+	operation := module.NewOperation(&module.User{})
 	errs := baseerr.New()
 	//获取当前登录用户
 	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
@@ -52,13 +52,13 @@ func (usercon *UserController) Show() {
 //修改用户信息
 func (usercon *UserController) ChangeUser() {
 	var (
-		operation   module.Operation = new(module.User)
 		user  module.User
 		id int
 		useremail string
 		ctxuser module.User
 		err error
 	)
+	operation := module.NewOperation(&module.User{})
 	errs := baseerr.New()
 	useremail ,_= usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
@@ -109,11 +109,11 @@ func (usercon *UserController) ChangeUser() {
 func (usercon *UserController) Del() {
 	var (
 		id int
-		operation  module.Operation= new(module.User)
 		useremail string
 		ctxuser module.User
 		err error
 	)
+	operation := module.NewOperation(&module.User{})
 	errs := baseerr.New()
 	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
@@ -140,13 +140,13 @@ func (usercon *UserController) Del() {
 
 func (usercon *UserController) Info() {
 	var (
-		operation  module.Operation = new(module.User)
 		id int
 		useremail string
 		user module.User
 		ctxuser module.User
 		err error
 	)
+	operation := module.NewOperation(&module.User{})
 	errs := baseerr.New()
 	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
@@ -171,12 +171,12 @@ func (usercon *UserController) Info() {
 //修改个人资料
 func (usercon *UserController)  MyInfo() {
 	var (
-		operation  module.Operation = new(module.User)
 		user module.User
 		useremail string
 		ctxuser module.User
 		err error
 	)
+	operation := module.NewOperation(&module.User{})
 	errs := baseerr.New()
 	useremail ,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
@@ -214,11 +214,11 @@ func (usercon *UserController)  MyInfo() {
 //修改当前登陆用户密码
 func (usercon *UserController) MyPass() {
 	var (
-		operation  module.Operation = new(module.User)
 		ctxuser module.User
 		useremail  string
 		err error
 	)
+	operation := module.NewOperation(&module.User{})
 	errs := baseerr.New()
 	useremail, _  = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
@@ -247,13 +247,13 @@ func (usercon *UserController) MyPass() {
 
 func (usercon *UserController) UserPass() {
 	var (
-		operation  module.Operation = new(module.User)
 		id int
 		useremail string
 		user module.User
 		ctxuser module.User
 		err error
 	)
+	operation := module.NewOperation(&module.User{})
 	errs := baseerr.New()
 	useremail, _  = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
