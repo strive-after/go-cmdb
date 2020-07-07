@@ -24,7 +24,7 @@ var filtFunc = func(ctx *context.Context) {
 func init()  {
 	//过滤函数
 	//访问这些页面得时候 需要通过session做判断没有登陆 无法访问后台页面
-	//beego.InsertFilter("/*",beego.BeforeRouter,filtFunc)
+	beego.InsertFilter("/*",beego.BeforeRouter,filtFunc)
 	//beego.InsertFilter("/user/show",beego.BeforeRouter,handlers.RestfulHandler())
 
 	// 登陆页面包含 reg跟login
