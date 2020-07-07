@@ -108,57 +108,14 @@ func (user *User) Add(mold interface{})  error {
 	return  nil
 }
 
-func (user User) ChangePass(id uint,oldpass ,newpass string) error {
-	user.ID = id
-	if err = user.GetId(&user);err != nil {
-		return fmt.Errorf("%v\n",err)
+func (user *User) Get(mold string,value interface{}) error {
+	user ,ok = value.(*User)
+	if !ok {
+		return fmt.Errorf("类型错误不是user类型")
 	}
-	//修改密码分为两种情况 一种是用户修改自己账号密码 那么需要旧密码跟新密码做判断
-	//一种是管理员对用户密码初始化 这种情况进当作是 用户密码忘记 需要管理员帮忙重置密码
-	if oldpass == " "{
-		user.Password ,err = HashPassword(newpass)
-		if err != nil {
-			return fmt.Errorf("密码修改失败 %v\n",err)
-		}
-		err = db.Model(User{}).Update(&user).Error
-		if  err != nil{
-			return errors.New("密码更新失败")
-		}
-	}else {
-		if CheckPasswordHash(oldpass,user.Password){
-			user.Password ,err = HashPassword(newpass)
-			if err != nil {
-				return fmt.Errorf("密码加密失败 %v\n",err)
-			}
-			err = db.Model(&User{}).Update(&user).Error
-			if err != nil {
-				return fmt.Errorf("密码更新失败 %v\n",err)
-			}
-		}else {
-			return fmt.Errorf("密码修改失败")
-		}
-	}
-	return  nil
-}
-
-func (user *User) ComparePass(passwd string) error{
-	err = db.Where("email = ?",user.Email).First(&user).Error
-	if err != nil {
-		return  errors.New("用户不存在")
-	}
-	//密码确认  read从数据库获取user的信息
-	//用户输入的密码+ 数据库存储 的盐 然后md5  加密之后是否与数据库密码一致  一致返回true
-	if CheckPasswordHash(passwd,user.Password){
-		return nil
-	}
-	return errors.New("密码错误")
-}
-
-
-func (user *User) Get(mold string,value interface{}) error{
 	switch mold {
 	case "email":
-		err = db.Model(&User{}).Where(" email = ? ",value).First(&user).Error
+		err = db.Model(&User{}).Where(" email = ? ",user.Email).First(&user).Error
 		if err != nil {
 			return fmt.Errorf("获取失败%v\n",err)
 		}
@@ -178,4 +135,16 @@ func (user *User) GetAll(mold interface{}) (interface{},error) {
 		return nil,fmt.Errorf("查询失败 %v",err)
 	}
 	return users,nil
+}
+
+func (user *User) UpdateMold(value interface{}) error{
+	user,ok  = value.(*User)
+	if !ok {
+		return fmt.Errorf("类型错误不是users类型")
+	}
+	err = db.Model(&User{}).Where("id = ?",user.ID).Update("password",user.Password).Error
+	if err != nil {
+		return fmt.Errorf("更新失败",err)
+	}
+	return  nil
 }

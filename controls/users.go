@@ -218,23 +218,28 @@ func (usercon *UserController) MyPass() {
 		useremail  string
 		err error
 	)
-	operation := module.NewOperation(&module.User{})
+	//operation := module.NewOperation(&module.User{})
 	errs := baseerr.New()
 	useremail, _  = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	if usercon.Ctx.Input.IsPost() {
 		oldpass := usercon.GetString("oldpass")
 		newpass := usercon.GetString("newpass")
-		if err = operation.ChangePass(ctxuser.ID,oldpass,newpass);err  !=nil {
+		err = module.ChangePasswordHash(oldpass,newpass,&ctxuser)
+		if err != nil {
 			beego.Error(err,"当前登陆用户",ctxuser.Name,"MyPassPost  密码更新失败")
 			errs.Add("MyPass","密码修改失败")
 		}
+		//if err = operation.ChangePass(ctxuser.ID,oldpass,newpass);err  !=nil {
+		//	beego.Error(err,"当前登陆用户",ctxuser.Name,"MyPassPost  密码更新失败")
+		//	errs.Add("MyPass","密码修改失败")
+		//}
 		//如果错误切片为0  errs.HasErrors()返回false
 		if !errs.HasErrors() {
 			//修改密码完毕后让用户重新登陆
 			usercon.DelSession(useremail)
 			usercon.Ctx.SetSecureCookie(Secret, "UserEmail", useremail, -1)
-			usercon.Redirect("/login", 302)
+			usercon.Redirect("/auth/login?email="+ctxuser.Email, 302)
 		}
 
 	}
@@ -270,16 +275,16 @@ func (usercon *UserController) UserPass() {
 
 	if usercon.Ctx.Input.IsPost() {
 		password := usercon.GetString("PassWord")
-		err = user.ChangePass(uint(id), " ", password)
+		err = module.ChangePasswordHash("",password,&user)
 		if err != nil {
 			beego.Error("修改失败",err)
 			errs.Add("UserPass","密码修改失败")
 		}
+
 		if user.ID == ctxuser.ID {
 			usercon.DelSession(useremail)
 			usercon.Ctx.SetSecureCookie(Secret,"UserEmail",useremail,-1)
-			usercon.Redirect("/login",302)
-			return
+			usercon.Redirect("/auth/login?email="+ctxuser.Email,302)
 		}
 		if !errs.HasErrors() {
 			usercon.Redirect("/user/show", 302)

@@ -120,3 +120,36 @@
 2020/07/07 10:58:58.429 [E] [login.go:55]  登陆失败，2 &{map[Login:[登陆失败]]} 
 2020/07/07 10:58:58.616 [E] [errors.go:14]  map[Login:[登陆失败 登陆失败,查询错误]] 
 2020/07/07 10:58:58.617 [E] [login.go:62]  获取失败%!(EXTRA *errors.errorString=record not found) 
+2020/07/07 12:42:00.029 [E] [users.go:230]  密码错误 crypto/bcrypt: hashedSecret too short to be a bcrypted password
+ 当前登陆用户 qushuaibo MyPassPost  密码更新失败 
+2020/07/07 12:42:00.031 [E] [errors.go:14]  map[MyPass:[密码修改失败]] 
+2020/07/07 12:46:10.251 [E] [users.go:230]  更新失败 类型错误不是user类型
+ 当前登陆用户 qushuaibo MyPassPost  密码更新失败 
+2020/07/07 12:46:10.251 [E] [errors.go:14]  map[MyPass:[密码修改失败]] 
+2020/07/07 12:46:23.410 [E] [users.go:230]  更新失败 类型错误不是user类型
+ 当前登陆用户 qushuaibo MyPassPost  密码更新失败 
+2020/07/07 12:46:23.411 [E] [errors.go:14]  map[MyPass:[密码修改失败]] 
+2020/07/07 12:49:42.844 [E] [errors.go:14]  map[Login:[登陆失败]] 
+2020/07/07 12:49:42.845 [E] [login.go:41]  登陆失败，2 &{map[Login:[登陆失败]]} 
+2020/07/07 12:50:10.172 [E] [users.go:280]  修改失败 更新失败 类型错误不是user类型
+ 
+2020/07/07 12:50:10.172 [E] [errors.go:14]  map[UserPass:[密码修改失败]] 
+2020/07/07 12:50:17.337 [E] [errors.go:14]  map[Login:[登陆失败]] 
+2020/07/07 12:50:17.339 [E] [login.go:41]  登陆失败，2 &{map[Login:[登陆失败]]} 
+2020/07/07 12:50:17.365 [E] [errors.go:14]  map[Login:[登陆失败 登陆失败,查询错误]] 
+2020/07/07 12:50:17.365 [E] [login.go:52]  获取失败record not found
+ 
+2020/07/07 12:50:26.096 [E] [errors.go:14]  map[Login:[登陆失败]] 
+2020/07/07 12:50:26.096 [E] [login.go:41]  登陆失败，2 &{map[Login:[登陆失败]]} 
+2020/07/07 12:50:26.136 [E] [errors.go:14]  map[Login:[登陆失败 登陆失败,查询错误]] 
+2020/07/07 12:50:26.136 [E] [login.go:52]  获取失败record not found
+ 
+2020/07/07 14:00:29.825 [E] [errors.go:14]  map[Login:[登陆失败]] 
+2020/07/07 14:00:29.825 [E] [login.go:43]  登陆失败，2 &{map[Login:[登陆失败]]} 
+2020/07/07 14:05:23.361 [E] [errors.go:14]  map[Login:[登陆失败]] 
+2020/07/07 14:05:23.362 [E] [login.go:43]  登陆失败，2 &{map[Login:[登陆失败]]} 
+2020/07/07 14:07:00.415 [E] [errors.go:14]  map[Login:[登陆失败]] 
+2020/07/07 14:07:00.416 [E] [login.go:44]  登陆失败，2 &{map[Login:[登陆失败]]} 
+2020/07/07 14:07:00.583 [E] [errors.go:14]  map[Login:[登陆失败 登陆失败,查询错误]] 
+2020/07/07 14:07:00.583 [E] [login.go:52]  获取失败record not found
+ 

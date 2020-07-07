@@ -15,7 +15,7 @@ type Operation interface {
 	CRUD
 	//返回一个表名  如果做关联查询好用
 	TableName() string
-	UserShare
+	//UserShare
 }
 
 
@@ -28,13 +28,10 @@ type CRUD interface {
 	Del(id uint) error
 	Get(mold string,value interface{}) error
 	GetAll(mold interface{}) (interface{},error)
+	UpdateMold(value interface{}) error
 }
 
 
-type UserShare interface {
-	ComparePass(passwd string) error
-	ChangePass(id uint,oldpass ,newpass string) error
-}
 
 
 func NewOperation(mold interface{}) Operation{

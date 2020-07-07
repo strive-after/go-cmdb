@@ -1,20 +1,10 @@
 package module
 
 import (
-	"math/rand"
-	"strconv"
 	"time"
 )
 
-func salt() string{
-	rand.Seed(time.Now().Unix())
-	var salts string
-	for i:= 0;i<10;i++{
-		num := strconv.Itoa(rand.Intn(9))
-		salts+=num
-	}
-	return  salts
-}
+
 
 
 
@@ -30,10 +20,7 @@ type Manage struct {
 	User   *User `orm:"rel(fk)"`
 }
 
-type UserMethod interface {
-	GetUser(username string,field string)
-	InputUser() (string,bool)
-}
+
 
 //根据权限返回权限对应的字符串
 func Role(num int) string{
