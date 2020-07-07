@@ -160,7 +160,7 @@ func (user *User) Get(mold string,value interface{}) error{
 	case "email":
 		err = db.Model(&User{}).Where(" email = ? ",value).First(&user).Error
 		if err != nil {
-			return fmt.Errorf("获取失败",err)
+			return fmt.Errorf("获取失败%v\n",err)
 		}
 	}
 	return nil
