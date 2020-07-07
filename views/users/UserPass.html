@@ -7,6 +7,13 @@
             <input type="password" name="PassWord" placeholder="请输入密码" autocomplete="off" class="layui-input">
         </div>
     </div>
+    {{ if .errors.HasErrors }}
+        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+            {{ range .errors.Errors }}
+                <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">{{ index . 0}}</button>
+            {{ end }}
+        </div>
+    {{ end }}
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即修改</button>

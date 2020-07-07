@@ -67,7 +67,6 @@ func (login *AuthController) Login()  {
 			login.Redirect("/",http.StatusFound)
 		}
 	}
-	beego.Info(len(errs.ErrorsByKey("Login")))
 	login.Data["errors"] = errs
 	login.TplName = `login.html`
 }

@@ -6,6 +6,13 @@
         <col width="300">
         <col>
     </colgroup>
+    {{ if .errors.HasErrors }}
+        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+            {{ range .errors.Errors }}
+                <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">{{ index . 0}}</button>
+            {{ end }}
+        </div>
+    {{ end }}
     <thead>
     <tr>
         <th>用户名</th>

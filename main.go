@@ -5,7 +5,6 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	_ "github.com/astaxie/beego/session/redis"
-	"github.com/strive-after/go-kubernetes/controls"
 	"github.com/strive-after/go-kubernetes/module"
 	_ "github.com/strive-after/go-kubernetes/module"
 	_ "github.com/strive-after/go-kubernetes/route"
@@ -50,8 +49,6 @@ func main() {
 	beego.BConfig.WebConfig.Session.SessionOn = true
 	beego.BConfig.WebConfig.Session.SessionProvider = "redis"
 	beego.BConfig.WebConfig.Session.SessionProviderConfig = beego.AppConfig.String("redisurl")
-	//自定义错误控制器
-	beego.ErrorController(&controls.ErrControls{})
 	beego.AddFuncMap("TimeForMat",StopTimeFormat)
 	beego.AddFuncMap("Roles",module.Role)
 	beego.AddFuncMap("Left",IndexLeft)

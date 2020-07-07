@@ -107,3 +107,16 @@
 2020/07/06 19:06:01.467 [E] [errors.go:14]  map[Reg:[注册失败_two]] 
 2020/07/06 19:07:43.982 [E] [errors.go:14]  map[Login:[登陆失败,1]] 
 2020/07/06 19:07:43.982 [E] [login.go:55]  登陆失败，2 &{map[Login:[登陆失败,1]]} 
+2020/07/07 10:57:21.692 [E] [errors.go:14]  map[Login:[登陆失败]] 
+2020/07/07 10:57:21.693 [E] [login.go:55]  登陆失败，2 &{map[Login:[登陆失败]]} 
+2020/07/07 10:57:40.529 [E] [users.go:128]  用户不可以删除自己 
+2020/07/07 10:57:40.530 [E] [errors.go:14]  map[Del:[删除失败]] 
+2020/07/07 10:57:53.489 [E] [users.go:190]  user 赋值失败%!(EXTRA *errors.errorString=record not found) 当前登录用户 qushuaibo MyInfoPost 用户信息更新失败 
+2020/07/07 10:57:53.489 [E] [errors.go:14]  map[MyInfo:[获取当前用户信息失败]] 
+2020/07/07 10:57:53.675 [E] [users.go:196]  id 无效 record not found
+ 当前登录用户 qushuaibo ChangeUserPost 获取用户失败 失败 
+2020/07/07 10:57:53.675 [E] [errors.go:14]  map[MyInfo:[获取当前用户信息失败 获取当前用户信息失败]] 
+2020/07/07 10:58:58.427 [E] [errors.go:14]  map[Login:[登陆失败]] 
+2020/07/07 10:58:58.429 [E] [login.go:55]  登陆失败，2 &{map[Login:[登陆失败]]} 
+2020/07/07 10:58:58.616 [E] [errors.go:14]  map[Login:[登陆失败 登陆失败,查询错误]] 
+2020/07/07 10:58:58.617 [E] [login.go:62]  获取失败%!(EXTRA *errors.errorString=record not found) 
