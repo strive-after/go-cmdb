@@ -1,14 +1,17 @@
 package main
 
 import (
+	//系统
 	"encoding/gob"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	_ "github.com/astaxie/beego/session/redis"
+
+	//自己
 	"github.com/strive-after/go-kubernetes/module"
+	"github.com/strive-after/go-kubernetes/util"
 	_ "github.com/strive-after/go-kubernetes/module"
 	_ "github.com/strive-after/go-kubernetes/route"
-	"github.com/strive-after/go-kubernetes/util"
 )
 
 
