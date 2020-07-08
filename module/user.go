@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -147,4 +148,56 @@ func (user *User) UpdateMold(value interface{}) error{
 		return fmt.Errorf("更新失败",err)
 	}
 	return  nil
+}
+
+//返回加密的密码
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
+}
+//密码验证 修改密码
+func ChangePasswordHash(oldpass ,newpass string,user *User) error {
+	operation :=  NewOperation(&User{})
+	err := operation.Get("email",user)
+	if err != nil {
+		return fmt.Errorf("获取用户失败 %v\n",err)
+	}
+	if oldpass == "" {
+		user.Password ,err = HashPassword(newpass)
+		if err != nil {
+			return fmt.Errorf("获取新密码失败 %v\n",err)
+		}
+		err = operation.UpdateMold(user)
+		if err != nil {
+			return fmt.Errorf("更新失败 %v\n",err)
+		}
+	}else {
+		err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(oldpass))
+		if err != nil {
+			return fmt.Errorf("密码错误 %v\n",err)
+		}
+		user.Password ,err = HashPassword(newpass)
+		if err != nil {
+			return fmt.Errorf("获取新密码失败 %v\n",err)
+		}
+		err = operation.UpdateMold(user)
+		if err != nil {
+			return fmt.Errorf("更新失败 %v\n",err)
+		}
+	}
+	return nil
+}
+
+//密码验证
+func CheckPassword(password string,user *User) error{
+	operation :=  NewOperation(&User{})
+	err := operation.Get("email",user)
+	if err != nil {
+		return  fmt.Errorf("获取用户失败 %v\n",err)
+	}
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if err != nil {
+		return fmt.Errorf("密码错误 %v\n",err)
+	}
+	return nil
 }
