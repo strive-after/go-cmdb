@@ -42,16 +42,17 @@ func init() {
 			Username: jenkins.user,
 			Password: jenkins.password,
 		},
-		Client:    nil,
+		Client:    &http.Client{},
 		CACert:    nil,
 		SslVerify: false,
 	}
-	response ,err := request.GetXML(jenkins.host,&http.Response{}, map[string]string{"job":"test"})
+	response ,err := request.GetXML("job/test",&http.Response{}, nil)
 	if err != nil {
 		beego.Error(err)
 		return
 	}
-	beego.Info(response)
+	//data := []byte{}
+	beego.Info("response",response.Request.Body)
 }
 
 
