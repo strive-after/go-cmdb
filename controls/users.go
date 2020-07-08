@@ -23,6 +23,7 @@ func (usercon *UserController) Show() {
 		users []module.User
 		//当前页码
 		ok bool
+		role int
 	)
 	operation := module.NewOperation(&module.User{})
 	errs := baseerr.New()
@@ -39,8 +40,17 @@ func (usercon *UserController) Show() {
 		beego.Error("转换失败",err)
 		errs.Add("Show","获取失败请联系管理员")
 	}
+	ctxuser.Role = role
+	if err = operation.GetId(&ctxuser);err != nil {
+		beego.Error(err,"show 获取ctxuser失败")
+	}
+	if ctxuser.Role != role {
+		usercon.SetSession(ctxuser.Email,ctxuser)
+		role = ctxuser.Role
+	}
+
 	usercon.Data["errors"] = errs
-	usercon.Data["conuserrole"] = ctxuser.Role
+	usercon.Data["conuserrole"] = role
 	usercon.Data["UserName"] = ctxuser.Name
 	usercon.Data["users"] = users
 	usercon.Layout = `layout.html`

@@ -717,3 +717,5 @@
 2020/07/07 14:07:00.583 [E] [errors.go:14]  map[Login:[登陆失败 登陆失败,查询错误]] 
 2020/07/07 14:07:00.583 [E] [login.go:52]  获取失败record not found
  
+2020/07/08 12:51:56.170 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/08 12:56:55.680 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000

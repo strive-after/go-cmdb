@@ -322,3 +322,5 @@
 2020/07/07 14:00:53.735 [I] [login.go:69]  qubo@163.com 1 
 2020/07/07 14:00:53.735 [I] [login.go:72]  qubo@163.com 2 
 2020/07/07 14:06:51.125 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/08 12:51:56.170 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
+2020/07/08 12:56:55.680 [I] [asm_amd64.s:1373]  http server Running on http://0.0.0.0:9000
