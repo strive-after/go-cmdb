@@ -49,16 +49,6 @@ func init() {
 	redispassword = beego.AppConfig.String("redispassword")
 
 	db.AutoMigrate(&User{})
-	// RedisClient = redis.NewClient(&redis.Options{
-	//	Addr:               redisurl,
-	//	Password:           redispassword,
-	//	db :                 0,
-	//})
-	// _,err := RedisClient.Ping().Result()
-	// if err != nil {
-	// 	beego.Error("redis连接失败,redis地址",redisurl,err)
-	// 	return
-	// }
 }
 
 
