@@ -1,4 +1,4 @@
-module github.com/strive-after/go-kubernetes
+module github.com/strive-after/go-cmdb
 
 go 1.14
 

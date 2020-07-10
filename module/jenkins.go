@@ -3,7 +3,7 @@ package module
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	"github.com/bndr/gojenkins"
+	"github.com/strive-after/go-cmdb/gojenkins"
 	"net/http"
 )
 
@@ -14,7 +14,7 @@ type JenkinsInfo struct {
 	token string
 }
 
-func NewJenkins() JenkinsInfo{
+func NewJenkins() JenkinsInfo {
 	return JenkinsInfo{
 		user:     beego.AppConfig.String("jenkins_user"),
 		password: beego.AppConfig.String("jenkins_password"),
@@ -31,11 +31,12 @@ var (
 
 func init() {
 	jenkins := NewJenkins()
-	jenkinsclient ,err = gojenkins.CreateJenkins(nil,jenkins.host,jenkins.user,jenkins.token).Init()
+	jenkinsclient, err = gojenkins.CreateJenkins(nil,jenkins.host,jenkins.user,jenkins.token).Init()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+	jenkinsclient.GetAllJobs()
 	request = &gojenkins.Requester{
 		Base:      jenkins.host,
 		BasicAuth: &gojenkins.BasicAuth{
@@ -46,13 +47,16 @@ func init() {
 		CACert:    nil,
 		SslVerify: false,
 	}
-	response ,err := request.GetXML("job/test",&http.Response{}, nil)
+	request.GetXML("job/test",&http.Response{}, nil)
 	if err != nil {
 		beego.Error(err)
 		return
 	}
+
+	jenkinsclient.CopyJob()
+	jenkinsclient.CreateJob()
+
 	//data := []byte{}
-	beego.Info("response",response.Request.Body)
 }
 
 
