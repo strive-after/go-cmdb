@@ -2,8 +2,8 @@ package controls
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/strive-after/go-kubernetes/base/baseerr"
-	"github.com/strive-after/go-kubernetes/module"
+	"github.com/strive-after/go-cmdb/base/baseerr"
+	"github.com/strive-after/go-cmdb/module"
 	"net/http"
 	"time"
 )

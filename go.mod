@@ -11,4 +11,5 @@ require (
 	github.com/jinzhu/gorm v1.9.14
 	github.com/shiena/ansicolor v0.0.0-20151119151921-a422bbe96644 // indirect
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e
 )

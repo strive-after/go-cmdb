@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/strive-after/go-cmdb/gojenkins"
-	"net/http"
 )
 
 type JenkinsInfo struct {
@@ -36,27 +35,14 @@ func init() {
 		fmt.Println(err)
 		return
 	}
-	jenkinsclient.GetAllJobs()
-	request = &gojenkins.Requester{
-		Base:      jenkins.host,
-		BasicAuth: &gojenkins.BasicAuth{
-			Username: jenkins.user,
-			Password: jenkins.password,
-		},
-		Client:    &http.Client{},
-		CACert:    nil,
-		SslVerify: false,
-	}
-	request.GetXML("job/test",&http.Response{}, nil)
+	job,err := jenkinsclient.GetJob("test")
 	if err != nil {
-		beego.Error(err)
+		fmt.Println(err)
 		return
 	}
 
-	jenkinsclient.CopyJob()
-	jenkinsclient.CreateJob()
 
-	//data := []byte{}
+
 }
 
 

@@ -299,8 +299,8 @@ func (j *Jenkins) GetBuild(jobName string, number int64) (*Build, error) {
 	return build, nil
 }
 
-func (j *Jenkins) GetJob(id string, parentIDs ...string) (*Job, error) {
-	job := Job{Jenkins: j, Raw: new(JobResponse), Base: "/job/" + strings.Join(append(parentIDs, id), "/job/")}
+func (j *Jenkins) GetJob(name string, parentIDs ...string) (*Job, error) {
+	job := Job{Jenkins: j, Raw: new(JobResponse), Base: "/job/" + strings.Join(append(parentIDs, name), "/job/")}
 	status, err := job.Poll()
 	if err != nil {
 		return nil, err

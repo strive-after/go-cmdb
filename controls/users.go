@@ -2,10 +2,11 @@ package controls
 //ctxuser表示当前登陆用户
 import (
 	"github.com/astaxie/beego"
-	"github.com/strive-after/go-kubernetes/base/baseerr"
-	"github.com/strive-after/go-kubernetes/module"
+	"github.com/strive-after/go-cmdb/base/baseerr"
+	"github.com/strive-after/go-cmdb/module"
 	"strconv"
 	"time"
+
 )
 
 type UserController struct {

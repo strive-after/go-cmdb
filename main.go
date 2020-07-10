@@ -8,10 +8,10 @@ import (
 	_ "github.com/astaxie/beego/session/redis"
 
 	//自己
-	"github.com/strive-after/go-kubernetes/module"
-	"github.com/strive-after/go-kubernetes/util"
-	_ "github.com/strive-after/go-kubernetes/module"
-	_ "github.com/strive-after/go-kubernetes/route"
+	"github.com/strive-after/go-cmdb/module"
+	"github.com/strive-after/go-cmdb/util"
+	_ "github.com/strive-after/go-cmdb/module"
+	_ "github.com/strive-after/go-cmdb/route"
 )
 
 

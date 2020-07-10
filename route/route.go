@@ -3,7 +3,7 @@ package route
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
-	"github.com/strive-after/go-kubernetes/controls"
+	"github.com/strive-after/go-cmdb/controls"
 )
 
 //这里切记contexy不是go自带的包 这里需要导入	"github.com/astaxie/beego/context"
