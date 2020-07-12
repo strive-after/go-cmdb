@@ -1,10 +1,10 @@
 package controls
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/strive-after/go-cmdb/base/baseerr"
 	"github.com/strive-after/go-cmdb/module"
-	"net/http"
 	"time"
 )
 var (
@@ -33,6 +33,7 @@ func (login *AuthController) Login()  {
 	//如果是post 做数据 处理
 	email = login.GetString("email")
 	if login.Ctx.Input.IsPost() {
+
 		if err := login.ParseForm(&user);err != nil {
 			errs.Add("Login","登陆失败")
 			beego.Error("登陆失败")
@@ -55,8 +56,8 @@ func (login *AuthController) Login()  {
 		if !errs.HasErrors() {
 			login.Ctx.SetSecureCookie(Secret,"UserEmail",user.Email,time.Second*3600)
 			login.SetSession(user.Email,user)
-			login.Redirect("/",http.StatusFound)
-			return
+			//login.Redirect("/",http.StatusFound)
+			login.Redirect("/",302)
 		}
 	}
 	login.Data["Email"] = email
@@ -72,7 +73,10 @@ func (login *AuthController) Out() {
 	//login.DelSession(email)
 	login.DestroySession()
 	login.Ctx.SetSecureCookie(Secret,"UserEmail",email,-1)
-	login.Redirect("/auth/login?email="+email,302)
+	pathinfo := "/auth/login?email=" + email
+	fmt.Println(pathinfo)
+	login.Redirect(pathinfo,302)
+	//login.Redirect(beego.URLFor("AuthController.Login")+"?email="+email,302)
 }
 
 
@@ -105,16 +109,12 @@ func (reg *AuthController) Reg() {
 }
 
 
-func (login *Operation)  Get() {
-	userEmail,ok  := login.Ctx.GetSecureCookie(Secret,"UserEmail")
-	if !ok {
-		beego.Error("获取cookie失败")
-		return
-	}
-	user := login.GetSession(userEmail).(module.User)
-	login.Data["UserName"] = user.Name
-	login.TplName = `operation.html`
-	login.Layout = `layout.html`
+func (operation *Operation)  Get() {
+	userEmail,_  := operation.Ctx.GetSecureCookie(Secret,"UserEmail")
+	user := operation.GetSession(userEmail).(module.User)
+	operation.Data["UserName"] = user.Name
+	operation.TplName = `operation.html`
+	operation.Layout = `layout.html`
 }
 
 
