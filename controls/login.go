@@ -73,7 +73,7 @@ func (login *AuthController) Out() {
 	//login.DelSession(email)
 	login.DestroySession()
 	login.Ctx.SetSecureCookie(Secret,"UserEmail",email,-1)
-	pathinfo := "/auth/login?email=" + email
+	pathinfo := beego.URLFor("AuthController.Login")+ "?emial=" + email
 	fmt.Println(pathinfo)
 	login.Redirect(pathinfo,302)
 	//login.Redirect(beego.URLFor("AuthController.Login")+"?email="+email,302)
