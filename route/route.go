@@ -15,6 +15,9 @@ var filtFunc = func(ctx *context.Context) {
 	if strings.Contains(url,"auth")  {
 		return
 	}
+	//if url == "/auth/login" || url == "/auth/reg" {
+	//	return
+	//}
 	useremail,_  := ctx.GetSecureCookie(controls.Secret,"UserEmail")
 	user := ctx.Input.Session(useremail)
 	if user == nil {
