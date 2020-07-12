@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/jinzhu/gorm"
+	"github.com/strive-after/go-cmdb/util"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -125,17 +126,17 @@ func (user *User) Get(mold string,value interface{}) error {
 }
 
 
-func (user *User) GetAll(mold interface{}) (interface{},error) {
-	var users []User
-	users ,ok = mold.([]User)
+func (user *User) GetAll(mold interface{}) error {
+	var users *[]User
+	users ,ok = mold.(*[]User)
 	if !ok {
-		return nil,fmt.Errorf("类型错误不是users类型")
+		return fmt.Errorf("类型错误不是users类型")
 	}
-	err = db.Model(&User{}).Find(&users).Error
+	err = db.Model(&User{}).Find(users).Error
 	if err != nil {
-		return nil,fmt.Errorf("查询失败 %v",err)
+		return fmt.Errorf("查询失败 %v",err)
 	}
-	return users,nil
+	return nil
 }
 
 func (user *User) UpdateMold(value interface{}) error{
@@ -148,6 +149,18 @@ func (user *User) UpdateMold(value interface{}) error{
 		return fmt.Errorf("更新失败",err)
 	}
 	return  nil
+}
+
+func (user *User) Query(method string,mold interface{}) error{
+	users := mold.(*[]User)
+	params := []interface{}{}
+	method = util.Like(method)
+	params = append(params, method,method,method)
+	err = db.Model(&User{}).Where("phone like ? escape '/' or email like ? escape '/' or email like ? escape '/' " ,params...).Find(users).Error
+	if err != nil {
+		return fmt.Errorf("获取失败 %v",err)
+	}
+	return nil
 }
 
 //返回加密的密码

@@ -27,8 +27,9 @@ type CRUD interface {
 	Update(mold interface{}) error
 	Del(id uint) error
 	Get(mold string,value interface{}) error
-	GetAll(mold interface{}) (interface{},error)
+	GetAll(mold interface{}) (error)
 	UpdateMold(value interface{}) error
+	Query(method string,mold interface{}) error
 }
 
 

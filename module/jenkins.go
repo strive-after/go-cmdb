@@ -35,14 +35,6 @@ func init() {
 		fmt.Println(err)
 		return
 	}
-	job,err := jenkinsclient.GetJob("test")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-
-
 }
 
 

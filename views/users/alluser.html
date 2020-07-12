@@ -13,6 +13,10 @@
             {{ end }}
         </div>
     {{ end }}
+    <form action="{{ urlfor `UserController.Query` }}" method="GET">
+        <input name="q" value="{{ .q }}" />
+        <input type="submit" value="查询"/>
+    </form>
     <thead>
     <tr>
         <th>用户名</th>

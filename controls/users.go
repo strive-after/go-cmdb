@@ -22,8 +22,7 @@ func (usercon *UserController) Show() {
 		ctxuser module.User
 		//所有用户列表
 		users []module.User
-		//当前页码
-		ok bool
+
 		role int
 	)
 	operation := module.NewOperation(&module.User{})
@@ -31,25 +30,31 @@ func (usercon *UserController) Show() {
 	//获取当前登录用户
 	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
-	allusers ,err :=  operation.GetAll(users)
-	if err != nil {
-		beego.Error("获取失败",err)
-		errs.Add("Show","获取失败请联系管理员")
+	q := usercon.GetString("q")
+	if q == "" {
+		err :=  operation.GetAll(&users)
+		if err != nil {
+			beego.Error("获取失败",err)
+			errs.Add("Show","获取失败请联系管理员")
+		}
+	}else {
+		err :=  operation.Query(q,&users)
+		if err != nil {
+			beego.Error("获取失败",err)
+			errs.Add("Show","获取失败请联系管理员")
+		}
 	}
-	users ,ok = allusers.([]module.User)
-	if !ok {
-		beego.Error("转换失败",err)
-		errs.Add("Show","获取失败请联系管理员")
-	}
+
+
 	ctxuser.Role = role
-	if err = operation.GetId(&ctxuser);err != nil {
+	if err := operation.GetId(&ctxuser);err != nil {
 		beego.Error(err,"show 获取ctxuser失败")
 	}
 	if ctxuser.Role != role {
 		usercon.SetSession(ctxuser.Email,ctxuser)
 		role = ctxuser.Role
 	}
-
+	usercon.Data["q"] = q
 	usercon.Data["errors"] = errs
 	usercon.Data["conuserrole"] = role
 	usercon.Data["UserName"] = ctxuser.Name
