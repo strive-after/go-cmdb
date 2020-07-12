@@ -162,6 +162,7 @@ func (usercon *UserController) Info() {
 		ctxuser module.User
 		err error
 	)
+
 	operation := module.NewOperation(&module.User{})
 	errs := baseerr.New()
 	useremail,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
@@ -197,26 +198,26 @@ func (usercon *UserController)  MyInfo() {
 	useremail ,_ = usercon.Ctx.GetSecureCookie(Secret,"UserEmail")
 	ctxuser = usercon.GetSession(useremail).(module.User)
 	if usercon.Ctx.Input.IsPost() {
-		user.ID = ctxuser.ID
 		if err = usercon.ParseForm(&user); err != nil {
 			beego.Error(err, "当前登录用户", ctxuser.Name, "MyInfoPost 获取前端传输用户信息失败")
 			errs.Add("MyInfo","获取当前用户信息失败")
 		}
-
+		user.ID = ctxuser.ID
 		if err = operation.Update(&user); err != nil {
 			beego.Error(err, "当前登录用户", ctxuser.Name, "MyInfoPost 用户信息更新失败")
 			errs.Add("MyInfo","获取当前用户信息失败")
 		}
 
-		err = operation.GetId(&user)
+		err = operation.GetId(&ctxuser)
 		if err != nil {
 			beego.Error(err, "当前登录用户", ctxuser.Name, "ChangeUserPost 获取用户失败 失败")
 			errs.Add("MyInfo","获取当前用户信息失败")
 		}
-		if errs.HasErrors() {
+		if !errs.HasErrors() {
 			usercon.Ctx.SetSecureCookie(Secret, "UserEmail", user.Email, time.Second*3600)
 			usercon.SetSession(user.Email, user)
 			usercon.Redirect("/user/show", 302)
+			return
 		}
 	}
 	usercon.Data["errors"] = errs
@@ -253,9 +254,12 @@ func (usercon *UserController) MyPass() {
 		//如果错误切片为0  errs.HasErrors()返回false
 		if !errs.HasErrors() {
 			//修改密码完毕后让用户重新登陆
-			usercon.DelSession(useremail)
+			//清除session
+			usercon.DestroySession()
+			//usercon.DelSession(useremail)
 			usercon.Ctx.SetSecureCookie(Secret, "UserEmail", useremail, -1)
 			usercon.Redirect("/auth/login?email="+ctxuser.Email, 302)
+			return
 		}
 
 	}
@@ -298,12 +302,14 @@ func (usercon *UserController) UserPass() {
 		}
 
 		if user.ID == ctxuser.ID {
-			usercon.DelSession(useremail)
+			usercon.DestroySession()
+			//usercon.DelSession(useremail)
 			usercon.Ctx.SetSecureCookie(Secret,"UserEmail",useremail,-1)
 			usercon.Redirect("/auth/login?email="+ctxuser.Email,302)
 		}
 		if !errs.HasErrors() {
 			usercon.Redirect("/user/show", 302)
+			return
 		}
 
 	}

@@ -21,9 +21,8 @@ func main() {
 	//未注册  必须注册才能用 有时候session获取的时候  它会提示  gob: name not registered for interface: "github.com/strive-after/go-kubernetes/module.User"
 	//那么就注册一下
 	gob.Register(module.User{})
-	beego.BConfig.WebConfig.Session.SessionOn = true
-	beego.BConfig.WebConfig.Session.SessionProvider = "redis"
-	beego.BConfig.WebConfig.Session.SessionProviderConfig = beego.AppConfig.String("redisurl")
+	//beego.BConfig.WebConfig.Session.SessionProvider = "redis"
+	//beego.BConfig.WebConfig.Session.SessionProviderConfig = beego.AppConfig.String("redisurl")
 	beego.AddFuncMap("TimeForMat",util.StopTimeFormat)
 	beego.AddFuncMap("Roles",util.Role)
 	beego.AddFuncMap("Left",util.IndexLeft)

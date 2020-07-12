@@ -69,7 +69,8 @@ func (login *AuthController) Login()  {
 
 func (login *AuthController) Out() {
 	email ,_:= login.Ctx.GetSecureCookie(Secret,"UserEmail")
-	login.DelSession(email)
+	//login.DelSession(email)
+	login.DestroySession()
 	login.Ctx.SetSecureCookie(Secret,"UserEmail",email,-1)
 	login.Redirect("/auth/login?email="+email,302)
 }
