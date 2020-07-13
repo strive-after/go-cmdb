@@ -9,6 +9,7 @@ import (
 
 const  (
 	userTableName string = "user"
+	managerTableName string = "manager"
 	groupTableName string = "group"
 )
 
@@ -66,6 +67,10 @@ func NewOperation(mold interface{}) Operation{
 	case *User:
 		operation = mold.(*User)
 		return operation
+	case *Manager:
+		operation = mold.(*Manager)
+		return  operation
 	}
+
 	return nil
 }

@@ -48,7 +48,7 @@ func init() {
 	redisurl = beego.AppConfig.String("redisurl")
 	redispassword = beego.AppConfig.String("redispassword")
 
-	db.AutoMigrate(&User{})
+	db.AutoMigrate(&User{},&Manager{})
 }
 
 

@@ -19,8 +19,9 @@ type User struct {
 	//Manage []*Manage `orm:"reverse(many)"`  //多任务
 }
 
+var _ Operation = (*User)(nil)
 
-func (user User) TableName() string {
+func (user *User) TableName() string {
 	return userTableName
 }
 
@@ -76,7 +77,7 @@ func (user *User) Update(mold interface{}) error {
 }
 
 
-func (user User) Del(id uint)  error{
+func (user *User) Del(id uint)  error{
 	err = db.Model(&User{}).Where("id = ? ",id).Delete(&User{}).Error
 	if err != nil {
 		return  errors.New("删除失败")

@@ -38,6 +38,8 @@ func init()  {
 	beego.Router("/",&controls.Operation{},"get:Get")
 	//用户页面
 	beego.AutoRouter(&controls.UserController{})
+	//任务
+	beego.AutoRouter(&controls.ManagerController{})
 }
 
 
